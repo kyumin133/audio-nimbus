@@ -1,6 +1,6 @@
 # SoundHound
 
-[Heroku link][heroku] **Note:** This should be a link to your production site
+[Heroku link][heroku]
 
 [Trello link][trello]
 
@@ -16,12 +16,11 @@ sufficient CSS styling:
 
 - [ ] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
-- [ ] Notes
-- [ ] Notebooks for organizing notes
-- [ ] Tags
-- [ ] Rich Text Editing
-- [ ] Infinite Scroll
-- [ ] Production README [sample](docs/production_readme.md)
+- [ ] Song CRUD
+- [ ] Playing songs with progress bar with continuous play
+- [ ] Comments
+- [ ] User pages
+- [ ] Production README
 
 ## Design Docs
 * [View Wireframes][wireframes]
@@ -42,29 +41,8 @@ sufficient CSS styling:
 
 **Objective:** Functioning rails project with front-end Authentication
 
-### Phase 2: Notes Model, API, and components (2 days)
-
-**Objective:** Notes can be created, read, edited and destroyed through
-the API.
-
-### Phase 3: Notebooks (2 days)
-
-**Objective:** Notes belong to Notebooks that can be created, read, edited and destroyed through the API.
-
-### Phase 4: Tags (1 day)
-
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
-
-### Phase 5: Allow Complex Styling in Notes (1 day, W2 Th 6pm)
-
-**Objective:** Allow rich text editing of notes.
-
-### Phase 6: - Pagination / infinite scroll for Notes Index (1 day, W2 F 6pm)
-
-**Objective:** Add infinite scroll to Notes Index
 
 ### Bonus Features (TBD)
-- [ ] Search notes by content
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
-- [ ] Multiple sessions
+- [ ] Wave Forms
+- [ ] Playlists
+- [ ] Likes
