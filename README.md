@@ -1,6 +1,6 @@
 # SoundHound
 
-[Heroku link][heroku] **Note:** This is a link to SoundCloud for now.
+[Heroku link][heroku]
 
 [Trello link][trello]
 
