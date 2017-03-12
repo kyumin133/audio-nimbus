@@ -1,0 +1,43 @@
+{
+  "name": "sound-hound",
+  "version": "1.0.0",
+  "description": "[Heroku link][heroku] **Note:** This is a link to SoundCloud for now.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack",
+    "postinstall": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyumin133/sound-hound.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kyumin133/sound-hound/issues"
+  },
+  "homepage": "https://github.com/kyumin133/sound-hound#readme",
+  "dependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "lodash": "^4.17.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0",
+    "redux": "^3.6.0",
+    "webpack": "^2.2.1"
+  },
+  "engines": {
+    "node": "4.1.1",
+    "npm": "2.1.x"
+  }
+}
