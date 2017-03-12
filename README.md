@@ -4,7 +4,7 @@
 
 [Trello link][trello]
 
-[heroku]: http://www.soundcloud.com
+[heroku]: https://sound-hound.herokuapp.com/
 [trello]: https://trello.com/b/auMfS3OH/soundhound
 
 ## Minimum Viable Product
