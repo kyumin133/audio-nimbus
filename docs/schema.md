@@ -25,3 +25,4 @@ column name     | data type | details
 id              | integer   | not null, primary key
 track_id        | integer   | not null, foreign key (references tracks), indexed
 author_id       | integer   | not null, foreign key (references users)
+text            | text      | not null

@@ -9,7 +9,7 @@
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote built using Ruby on Rails
+SoundHound is a web application inspired by SoundCloud built using Ruby on Rails
 and React/Redux.  By the end of Week 9, this app will, at a minimum, satisfy the
 following criteria with smooth, bug-free navigation, adequate seed data and
 sufficient CSS styling:
@@ -37,7 +37,7 @@ sufficient CSS styling:
 
 ## Implementation Timeline
 
-### Phase 1: Backend setup and Front End User Authentication (1 day)
+### Phase 1: Backend setup and Front End User Authentication (1.5 days)
 
 **Objective:** Functioning rails project with front-end authentication, including a demo login.
 
@@ -45,14 +45,14 @@ sufficient CSS styling:
 
 **Objective:** Allow song CRUD, displaying information about the song as well.
 
-### Phase 3: Cloud setup (2 days)
+### Phase 3: Cloud setup (1 day)
 **Objective:** Set up cloud to host images and audio.
 
 ### Phase 4: Track playback (1.5 days)
 
 **Objective:** Tracks play continuously across pages.
 
-### Phase 5: User profile information (1 day)
+### Phase 5: User profile information (1.5 days)
 
 **Objective:** User pages that contain username, email, profile picture, and tracks.
 
