@@ -2,9 +2,9 @@
     0% {
       background-color: rgba(242, 242, 242, 0);
     }
-    30% {
-      background-color: rgba(242, 242, 242, 0);
-    }
+    // 30% {
+    //   background-color: rgba(242, 242, 242, 0);
+    // }
     100% {
       background-color: rgba(242, 242, 242, 0.3);
     }
@@ -26,6 +26,7 @@
   width: 100%;
   animation-name: loadModal;
   animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
   // display: flex;
   // align-items: center;
   // justify-content: center;
