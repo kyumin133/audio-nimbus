@@ -19,7 +19,7 @@
 
 .logo:hover {
   cursor: pointer;
-  filter: brightness(1.2);
+  filter: brightness(1.3);
 }
 
 
@@ -73,11 +73,11 @@ nav li:hover {
 }
 
 .demo {
-  background-color: #f50;
+  background: linear-gradient(#f70,#f30);
   border: none;
   // transition: 0.5s ease-in-out;
 }
 
 .demo:hover {
-  background-color: #f70;
+  filter: brightness(1.3);
 }
