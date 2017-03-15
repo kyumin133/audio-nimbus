@@ -43,7 +43,7 @@ class App extends React.Component {
                      className="modal"
                      onRequestClose={this.handleCloseModal} >
                      <div className="close-modal" onClick={this.handleCloseModal}>
-                       x
+                       &#x2573;
                      </div>
                     <UserAuthMain handleCloseModal={this.handleCloseModal} firstLoad={true}></UserAuthMain>
                   </ReactModal>
