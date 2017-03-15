@@ -23,7 +23,7 @@ const SessionAPIUtil = {
     });
   },
 
-  logout: () => {
+  logout: () => {    
     return $.ajax({
       url: "api/session",
       type: "DELETE"

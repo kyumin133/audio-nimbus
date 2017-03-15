@@ -1,11 +1,13 @@
 import React from "react";
 import EmailEntry from "./email_entry";
 import UserAuthContainer from "./user_auth_container";
+import { withRouter } from 'react-router';
 
 class UserAuthMain extends React.Component {
   constructor(props) {
     super(props);
     this.setForm = this.setForm.bind(this);
+    this.login = this.login.bind(this);
     this.state = {
       formToRender: "EmailEntry",
       email: ""
@@ -18,6 +20,11 @@ class UserAuthMain extends React.Component {
     // console.log(this.state);
   }
 
+  login() {
+    this.props.handleCloseModal();
+    this.props.router.push("/home");
+  }
+
   render() {
     let firstLoad = false;
     if (this.firstLoad) {
@@ -28,10 +35,10 @@ class UserAuthMain extends React.Component {
     let form;
     switch(this.state.formToRender) {
       case "Login":
-        form = <UserAuthContainer formType="login" setForm={this.setForm} email={this.state.email}></UserAuthContainer>;
+        form = <UserAuthContainer formType="login" login={this.login} setForm={this.setForm} email={this.state.email}></UserAuthContainer>;
         break;
       case "Signup":
-        form = <UserAuthContainer formType="signup" setForm={this.setForm} email={this.state.email}></UserAuthContainer>;
+        form = <UserAuthContainer formType="signup" login={this.login} setForm={this.setForm} email={this.state.email}></UserAuthContainer>;
         break;
       default:
         form = <EmailEntry setForm={this.setForm} email={this.state.email} firstLoad={firstLoad}></EmailEntry>;
@@ -43,4 +50,4 @@ class UserAuthMain extends React.Component {
   }
 }
 
-export default UserAuthMain;
+export default withRouter(UserAuthMain);

@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       } else {
         return dispatch(signup(user));
       }
-    },
+    },    
     setForm: (form, email) => ownProps.setForm(form, email)
   };
 };

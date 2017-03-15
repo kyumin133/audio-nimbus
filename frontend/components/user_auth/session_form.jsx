@@ -26,9 +26,13 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.processForm(this.state, this.props.formType).then(() => {}).fail(() => {
-      this.setState({errors: this.props.errors})
-    });
+    this.props.processForm(this.state, this.props.formType).then((response) => {
+        this.props.login();
+      }).fail(() => {
+        this.setState({
+          errors: this.props.errors
+        });
+      });
   }
 
   render() {
@@ -37,6 +41,9 @@ class SessionForm extends React.Component {
     let passwordClass = "box";
     if (this.state.errors.length > 0) {
       let errorArr = this.state.errors.map((error, i) => {
+        if (error === "Username has already been taken") {
+          return "";
+        }
         return <li key={i}>{error}</li>
       });
       errors = <ul className="error-ul">{errorArr}</ul>;
