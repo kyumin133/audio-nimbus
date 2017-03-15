@@ -75,7 +75,7 @@ footer a:hover {
 
 .main-div {
   width: 90%;
-  height: 100%;
+  height: 90vh;
   background-color: white;
   display: flex;
   justify-content: center;
@@ -88,7 +88,11 @@ footer a:hover {
 
 @keyframes loadTransparent {
     0% {
-        opacity: 0;
+      opacity: 0;
+      display: none;
+    }
+    10% {
+      opacity: 0;
     }
     100% {
         opacity: 1;
@@ -97,7 +101,7 @@ footer a:hover {
 
 .background {
   width: 100%;
-  /*min-height: 90vh;*/
+  /*height: 90vh;*/
   /*height: auto;*/
   /*width: auto;*/
   position: relative;
