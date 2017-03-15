@@ -80,13 +80,13 @@ footer a:hover {
   display: flex;
   justify-content: center;
 
-  animation-name: loadImgCaption;
+  animation-name: loadTransparent;
   animation-duration: 4s;
 
   /*position: relative;*/
 }
 
-@keyframes loadImgCaption {
+@keyframes loadTransparent {
     0% {
         opacity: 0;
     }
@@ -126,8 +126,22 @@ footer a:hover {
 
 
 .error {
+  width: 100%;
   color: #f50;
   margin: 10px;
+  animation-name: loadTransparent;
+  animation-duration: 0.3s;
+}
+
+.error-ul {
+  width: 100%;
+  color: #f50;
+  list-style: none;
+  padding-left: 0;
+  /*background-color: cornflowerblue;*/
+
+  animation-name: loadTransparent;
+  animation-duration: 0.3s;
 }
 
 .error-box {
