@@ -9,6 +9,7 @@ class App extends React.Component {
       showModal: false
     };
 
+    ReactModal.defaultStyles.overlay.backgroundColor = 'none';
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }

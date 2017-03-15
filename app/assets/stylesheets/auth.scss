@@ -2,11 +2,8 @@
     0% {
       background-color: rgba(242, 242, 242, 0);
     }
-    // 30% {
-    //   background-color: rgba(242, 242, 242, 0);
-    // }
     100% {
-      background-color: rgba(242, 242, 242, 0.3);
+      background-color: rgba(242, 242, 242, 0.5);
     }
 }
 @keyframes loadForm {
@@ -21,7 +18,7 @@
 }
 
 .modal {
-  background-color: rgba(242, 242, 242, 0.3);
+  background-color: rgba(242, 242, 242, 0.5);
   height: 100vh;
   width: 100%;
   animation-name: loadModal;
