@@ -13,3 +13,129 @@
  *= require_tree .
  *= require_self
  */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans";
+}
+div {
+  margin: 0;
+  padding: 0;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  background-color: #333;
+  width: 100%;
+  position: relative;
+  height: 46px;
+}
+
+header span {
+  color: white;
+
+}
+
+footer {
+  background-color: #333;
+  color: rgb(200, 200, 200);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer a {
+  transition: color 0.2s ease-in-out;
+}
+footer a:hover {
+  color: white;
+}
+
+.img-src {
+  font-size: 10px;
+}
+
+.home-body {
+  display: flex;
+  width:100%;
+  background-color: rgb(242, 242, 242);
+  height: 90vh;
+}
+
+.margin-div {
+  width: 5%;
+}
+
+.main-div {
+  width: 90%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+
+  animation-name: loadImgCaption;
+  animation-duration: 4s;
+
+  /*position: relative;*/
+}
+
+@keyframes loadImgCaption {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.background {
+  width: 100%;
+  /*height: auto;*/
+  /*width: auto;*/
+  position: relative;
+  left: 0;
+  rght: 0;
+  filter: brightness(0.4) sepia(0.5);
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-image: url("/assets/desk.jpeg");
+
+  background-size:cover;
+  /*position: absolute;
+  left: 0;
+  top: 0;*/
+  /*animation-delay: 0.5s;*/
+}
+
+.home-caption {
+  color: rgb(242, 242, 242);
+  position: absolute;
+  top: 40%;
+  font-size: 20px;
+  font-weight: normal;
+  margin: 20px;
+
+}
+
+
+.error {
+  color: #f50;
+  margin: 10px;
+}
+
+.error-box {
+  margin-bottom: 10px;
+  font-size: 20px;
+  padding: 10px;
+  width: 100%;
+  box-sizing:border-box;
+  border: 1px solid #f50;
+  border-radius: 5px;
+}
