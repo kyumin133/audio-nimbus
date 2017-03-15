@@ -1,15 +1,13 @@
 class User < ApplicationRecord
   validates :username, :email, :session_token, uniqueness: true, presence: true
+  has_attached_file :image, default_url: "assets/dog.png"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  validates :password_digest, :image_url, presence: true
+  validates :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
-  after_initialize :ensure_session_token, :default_image_url, :default_username
+  after_initialize :ensure_session_token, :default_username
   attr_reader :password
-
-  def default_image_url
-    self.image_url ||= "assets/dog.png"
-  end
 
   def default_username
     self.username ||= self.email

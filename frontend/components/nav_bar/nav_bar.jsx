@@ -1,7 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 import UserAuthMain from '../user_auth/user_auth_main';
-import { withRouter } from "react-router";
+import { Link, withRouter } from "react-router";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class NavBar extends React.Component {
     ReactModal.setAppElement('body');
   }
   logout() {
-    this.props.logout().then(this.props.router.push("/login"));
+    this.props.logout();
   }
 
   render() {
@@ -48,8 +48,8 @@ class NavBar extends React.Component {
       return  <nav>
                 <ul>
                   <li>Upload</li>
-                  <li>Profile</li>
-                  <li onClick={this.logout}>Sign Out</li>
+                  <Link to={"/edit_profile"}><li>Profile</li></Link>
+                  <Link to={"/upload"}><li onClick={this.logout}>Sign Out</li></Link>
                 </ul>
               </nav>;
     } else {

@@ -6,9 +6,12 @@ import { login } from './actions/session_actions';
 import SessionAPIUtil from './util/session_api_util';
 
 import configureStore from './store/store';
+import AWS from 'aws-sdk';
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  // let myConfig = new AWS.Config();
+  // myConfig.update({region: 'us-west-1'});
   let store = {};
 
   let preloadedState =  {

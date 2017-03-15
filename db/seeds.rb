@@ -11,7 +11,12 @@
   User.create({
     username: Faker::Internet.user_name,
     password: "123456",
-    email: Faker::Internet.email,
-    image_url: Faker::Avatar.image
+    email: Faker::Internet.email
   })
 end
+
+User.create({
+  username: "demo",
+  password: "password",
+  email: "demo@demo.com"
+  })
