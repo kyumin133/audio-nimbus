@@ -43,7 +43,7 @@ class NavBar extends React.Component {
 
   render() {
     let loggedIn = !!window.currentUser;
-
+    
     if (loggedIn) {
       return  <nav>
                 <ul>

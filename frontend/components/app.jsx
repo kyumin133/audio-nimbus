@@ -28,8 +28,7 @@ class App extends React.Component {
 
     return <div>
       { header }
-      { this.props.children }
-      { footer }
+      { this.props.children }      
     </div>
   }
 };

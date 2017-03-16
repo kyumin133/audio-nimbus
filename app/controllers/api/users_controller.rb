@@ -12,14 +12,12 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    file = params[:user][:image]
-    @user.image = file
-    @user.save!
+    @user.update(user_params)
     render :show
   end
 
   private
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :image)
   end
 end

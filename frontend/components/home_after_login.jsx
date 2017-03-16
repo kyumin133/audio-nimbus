@@ -1,17 +1,20 @@
 import React from "react";
+import TracksIndexContainer from "./tracks/tracks_index_container";
+import AudioContainer from "./audio/audio_container";
 
 class HomeAfterLogin extends React.Component {
   render() {
-    return <div className="home-body">
-      <div className="margin-div"></div>
-      <div className="main-div">
-        <div className="background logged-in"></div>
-        <div className="home-caption">
-          <h1>Welcome, {window.currentUser.username}.</h1>
-        </div>
-      </div>
-      <div className="margin-div"></div>
-    </div>
+    return  <div className="body-audio">
+              <div className="home-body">
+                <div className="margin-div"></div>
+                <div className="main-div">
+                  <TracksIndexContainer />
+                </div>
+                <div className="margin-div"></div>
+
+              </div>
+              <AudioContainer />
+            </div>
   }
 }
 

@@ -20,3 +20,18 @@ User.create({
   password: "password",
   email: "demo@demo.com"
   })
+
+tracks = ["cards", "citylights", "bach", "sunset"]
+track_names = ["The Man in a House of Cards", "City Lights", "Concerto for Two Violins in d minor (Guitar)", "What a Beautiful Sunset!"]
+artist_ids = [User.first.id, User.last.id]
+
+tracks.each_with_index do |track, i|
+  image = File.open("app/assets/music/artwork/#{track}.jpg")
+  music = File.open("app/assets/music/tracks/#{track}.mp3")
+  Track.create({
+      title: track_names[i],
+      image: image,
+      music: music,
+      artist_id: artist_ids[i % 2]
+    })
+end

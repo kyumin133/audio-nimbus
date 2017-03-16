@@ -1,5 +1,10 @@
 class User < ApplicationRecord
   validates :username, :email, :session_token, uniqueness: true, presence: true
+  has_many :tracks,
+    primary_key: :id,
+    foreign_key: :artist_id,
+    class_name: :Track
+
   has_attached_file :image, default_url: "assets/dog.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 

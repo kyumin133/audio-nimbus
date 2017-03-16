@@ -4,7 +4,6 @@ import HomeAfterLogin from "./home_after_login";
 
 class Home extends React.Component {
   render() {
-    console.log(window.currentUser);
     if (window.currentUser) {
       return < HomeAfterLogin />;
     } else {

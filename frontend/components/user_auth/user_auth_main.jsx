@@ -17,7 +17,6 @@ class UserAuthMain extends React.Component {
 
   setForm(form, email = "") {
     this.setState({formToRender: form, email: email});
-    // console.log(this.state);
   }
 
   login() {

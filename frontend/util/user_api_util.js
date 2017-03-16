@@ -11,7 +11,6 @@ const UserAPIUtil = {
       dataType: 'json',
       data: formData,
       success: (user) => {
-        console.log(user);
         receiveCurrentUser(user);
       }
     });
