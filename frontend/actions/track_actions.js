@@ -1,6 +1,7 @@
 import TrackAPIUtil from '../util/track_api_util';
 
 export const RECEIVE_PLAY_TRACK = "RECEIVE_PLAY_TRACK";
+export const STOP_CURRENT_TRACK = "STOP_CURRENT_TRACK";
 export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
@@ -12,6 +13,12 @@ export const receivePlayTrack = (track) => {
     track
   };
 };
+
+export const stopCurrentTrack = () => {
+  return {
+    type: STOP_CURRENT_TRACK,
+  };
+}
 
 export const receiveTracks = (tracks) => {
   return {

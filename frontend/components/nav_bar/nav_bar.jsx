@@ -38,12 +38,14 @@ class NavBar extends React.Component {
     ReactModal.setAppElement('body');
   }
   logout() {
-    this.props.logout();
+    this.props.logout().then(() => {
+      this.props.stopTrack();
+    });
   }
 
   render() {
     let loggedIn = !!window.currentUser;
-    
+
     if (loggedIn) {
       return  <nav>
                 <ul>

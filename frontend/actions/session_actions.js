@@ -13,7 +13,7 @@ export const login = (user) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  return SessionAPIUtil.logout().then(response => {    
+  return SessionAPIUtil.logout().then(response => {
     window.currentUser = null;
     hashHistory.push("/login");
     return dispatch(receiveCurrentUser(null));

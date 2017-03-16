@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { logout } from "../../actions/session_actions";
+import { login, logout } from "../../actions/session_actions";
+import { stopCurrentTrack } from "../../actions/track_actions";
 import NavBar from "./nav_bar";
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,6 +16,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     logout: () => {
       return dispatch(logout());
+    },
+    stopTrack: () => {
+      return dispatch(stopCurrentTrack());
     }
   };
 };

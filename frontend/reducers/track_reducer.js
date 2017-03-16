@@ -1,4 +1,4 @@
-import { RECEIVE_PLAY_TRACK, RECEIVE_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_ERRORS } from "../actions/track_actions";
+import { RECEIVE_PLAY_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_ERRORS } from "../actions/track_actions";
 import merge from 'lodash/merge';
 
 const initialState = {
@@ -12,6 +12,9 @@ const trackReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_PLAY_TRACK:
       newState.currentTrack = action.track;
+      return newState;
+    case STOP_CURRENT_TRACK:
+      newState.currentTrack = null;
       return newState;
     case RECEIVE_TRACKS:
       newState.tracks = action.tracks;
