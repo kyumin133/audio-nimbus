@@ -51,7 +51,7 @@ class NavBar extends React.Component {
                 <ul>
                   <li>Upload</li>
                   <Link to={"/edit_profile"}><li>Profile</li></Link>
-                  <Link to={"/upload"}><li onClick={this.logout}>Sign Out</li></Link>
+                  <li onClick={this.logout}>Sign Out</li>
                 </ul>
               </nav>;
     } else {
