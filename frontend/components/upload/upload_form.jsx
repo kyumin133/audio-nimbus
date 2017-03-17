@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 import UserAPIUtil from "../../util/user_api_util"
 
 class UploadForm extends React.Component {
@@ -8,6 +9,7 @@ class UploadForm extends React.Component {
     this.changeMusic = this.changeMusic.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
+    this.cancel = this.cancel.bind(this);
     this.state = {
       title: "",
       imageUrl: "",
@@ -16,6 +18,10 @@ class UploadForm extends React.Component {
       musicFile: null,
       artistId: this.props.currentUser.id
     }
+  }
+
+  cancel() {
+    this.props.router.push("/home")
   }
 
   update(id) {
@@ -30,7 +36,9 @@ class UploadForm extends React.Component {
     formData.append("track[music]", this.state.musicFile)
     formData.append("track[artist_id]", this.props.currentUser.id)
     formData.append("track[title]", this.state.title)
-    this.props.createTrack(formData);
+    this.props.createTrack(formData).then(() => {
+      this.props.router.push("/home")
+    });
   }
 
   changeMusic(e) {
@@ -72,7 +80,7 @@ class UploadForm extends React.Component {
 
     return  <div className="home-body">
               <div className="margin-div"></div>
-              <div className="upload-page">                
+              <div className="upload-page">
                 <form className="upload-form" onSubmit={this.handleSubmit}>
                   <div className="track-data">
                     <div className="upload-form-left">
@@ -85,7 +93,7 @@ class UploadForm extends React.Component {
                       <input type="file" className="upload-music-input" id="upload-music-input" accept="audio/mpeg3" onChange={this.changeMusic} />
                       <label htmlFor="upload-music-input" className="upload-music-label box">Select Song</label>
                       <div className="upload-form-buttons">
-                        <button type="button" className="cancel-upload">Cancel</button>
+                        <button type="button" onClick={this.cancel} className="cancel-upload">Cancel</button>
                         <input type="submit" className="submit-upload" value="Upload"></input>
                       </div>
                     </div>
@@ -97,4 +105,4 @@ class UploadForm extends React.Component {
   }
 }
 
-export default UploadForm;
+export default withRouter(UploadForm);
