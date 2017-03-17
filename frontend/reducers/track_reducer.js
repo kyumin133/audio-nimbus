@@ -1,4 +1,4 @@
-import { RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO, RECEIVE_PLAY_PAUSE_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_ERRORS } from "../actions/track_actions";
+import { RECEIVE_UPLOAD_STATUS, RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO, RECEIVE_PLAY_PAUSE_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_ERRORS } from "../actions/track_actions";
 import merge from 'lodash/merge';
 
 const initialState = {
@@ -11,6 +11,9 @@ const trackReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState = merge({}, state);;
   switch (action.type) {
+    case RECEIVE_UPLOAD_STATUS:
+      newState.uploading = action.uploading;
+      return newState;
     case RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO:
       newState.currentTrackPlaying = !newState.currentTrackPlaying;
       return newState;
@@ -25,7 +28,7 @@ const trackReducer = (state = initialState, action) => {
       } else {
         newState.currentTrackPlaying = true;
       }
-      // console.log(newState.currentTrackPlaying);
+      
       return newState;
     case STOP_CURRENT_TRACK:
       newState.currentTrack = null;

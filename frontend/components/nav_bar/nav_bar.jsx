@@ -64,7 +64,7 @@ class NavBar extends React.Component {
                 <ReactModal
                    isOpen={this.state.showModal}
                    contentLabel="User Auth modal"
-                   className="modal"
+                   className="upload-modal"
                    onRequestClose={this.handleCloseModal} >
                    <div className="close-modal" onClick={this.handleCloseModal}>
                      &#x2573;

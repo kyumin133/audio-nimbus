@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
+import ReactModal from "react-modal";
 import UserAPIUtil from "../../util/user_api_util"
 
 class UploadForm extends React.Component {
@@ -16,7 +17,9 @@ class UploadForm extends React.Component {
       imageFile: null,
       musicUrl: "",
       musicFile: null,
-      artistId: this.props.currentUser.id
+      musicFileName: "Select Song",
+      artistId: this.props.currentUser.id,
+      showUploadModal: false
     }
   }
 
@@ -30,14 +33,14 @@ class UploadForm extends React.Component {
     }
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     let formData = new FormData();
     formData.append("track[image]", this.state.imageFile);
     formData.append("track[music]", this.state.musicFile)
     formData.append("track[artist_id]", this.props.currentUser.id)
     formData.append("track[title]", this.state.title)
     this.props.createTrack(formData);
-    this.props.router.push("/home");
   }
 
   changeMusic(e) {
@@ -45,13 +48,13 @@ class UploadForm extends React.Component {
     var file = e.currentTarget.files[0];
 
     reader.onloadend = function() {
-      this.setState({ musicUrl: reader.result, musicFile: file});
+      this.setState({ musicUrl: reader.result, musicFile: file, musicFileName: file.name});
     }.bind(this);
 
     if (file) {
       reader.readAsDataURL(file);
     } else {
-      this.setState({ musicUrl: "", musicFile: null });
+      this.setState({ musicUrl: "", musicFile: null, musicFileName: "Select Song" });
     }
   }
 
@@ -69,6 +72,14 @@ class UploadForm extends React.Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.uploading) {
+      this.setState({ showUploadModal: true });
+    } else {
+      this.setState({ showUploadModal: false });
+    }
+  }
+
   render() {
     let pic = "";
 
@@ -77,20 +88,30 @@ class UploadForm extends React.Component {
       imgSrc = "/assets/track.jpeg";
     }
 
+    // console.log(this.state.showUploadModal);
+    let modal = <ReactModal
+         isOpen={this.state.showUploadModal}
+         contentLabel="Upload Form modal"
+         className="upload-modal" >
+        <span className="uploading">Uploading...</span>
+      </ReactModal>;
+
+    let imgLabel = (this.state.showUploadModal) ? "" : <label htmlFor="upload-img-input" className="upload-img-label"><i className="fa fa-camera" aria-hidden="true"></i></label>
     return  <div className="home-body">
               <div className="margin-div"></div>
               <div className="upload-page">
+                {modal}
                 <form className="upload-form" onSubmit={this.handleSubmit}>
                   <div className="track-data">
                     <div className="upload-form-left">
                       <input id="upload-img-input" className="upload-img-input" type="file" accept="image/*" onChange={this.changePicture} />
-                      <label htmlFor="upload-img-input" className="upload-img-label"><i className="fa fa-camera" aria-hidden="true"></i></label>
+                      {imgLabel}
                       <img className="upload-img" src={imgSrc}></img>
                     </div>
                     <div className="upload-form-right">
                       <input type="text" className="box" value={this.state.title} onChange={this.update("title")} placeholder="Title"></input>
                       <input type="file" className="upload-music-input" id="upload-music-input" accept="audio/mpeg3" onChange={this.changeMusic} />
-                      <label htmlFor="upload-music-input" className="upload-music-label box">Select Song</label>
+                      <label htmlFor="upload-music-input" className="upload-music-label box">{this.state.musicFileName}</label>
                       <div className="upload-form-buttons">
                         <button type="button" onClick={this.cancel} className="cancel-upload">Cancel</button>
                         <input type="submit" className="submit-upload" value="Upload"></input>

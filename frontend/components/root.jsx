@@ -8,6 +8,7 @@ import HomeBeforeLogin from "./home_before_login";
 import HomeAfterLogin from "./home_after_login";
 import EditProfileFormContainer from "./edit_profile/edit_profile_form_container";
 import UploadFormContainer from "./upload/upload_form_container";
+import TrackDetailsContainer from "./track_details/track_details_container";
 
 const Root = ({ store }) => {
   return <Provider store={ store }>
@@ -18,6 +19,7 @@ const Root = ({ store }) => {
         <Route path="login" component={ HomeBeforeLogin } onEnter={ _redirectIfLoggedIn }/>
         <Route path="edit_profile" component={ EditProfileFormContainer } onEnter={ _ensureLoggedIn } />
         <Route path="upload" component={ UploadFormContainer } onEnter={ _ensureLoggedIn } />
+        <Route path="track/:trackId" component={ TrackDetailsContainer } onEnter={ _ensureLoggedIn }/>
       </Route>
     </Router>
   </Provider>

@@ -15,7 +15,7 @@ const TrackAPIUtil = {
   },
 
   createTrack: (track) => {
-    console.log(track);
+    // console.log(track);
     return $.ajax({
       url: "api/tracks",
       type: "POST",

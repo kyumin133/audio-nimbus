@@ -1,4 +1,5 @@
 import TrackAPIUtil from '../util/track_api_util';
+import { hashHistory } from 'react-router';
 
 export const RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO = "RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO";
 export const RECEIVE_PLAY_PAUSE_TRACK = "RECEIVE_PLAY_PAUSE_TRACK";
@@ -7,6 +8,7 @@ export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+export const RECEIVE_UPLOAD_STATUS = "RECEIVE_UPLOAD_STATUS";
 
 export const receivePlayPauseTrackFromAudio = (paused) => {
   return {
@@ -43,7 +45,12 @@ export const receiveTrack = (track) => ({
 export const receiveErrors = (errors) => ({
   type: RECEIVE_ERRORS,
   errors
-})
+});
+
+export const receiveUploadStatus = (uploading) => ({
+  type: RECEIVE_UPLOAD_STATUS,
+  uploading
+});
 
 export const fetchTracks = (user) => (dispatch) => {
   return TrackAPIUtil.fetchTracks(user).then(response => {
@@ -70,8 +77,13 @@ export const playPauseTrackFromAudio = (paused) => (dispatch) => {
 }
 
 export const createTrack = (track) => (dispatch) => {
+  dispatch(receiveUploadStatus(true));
   return TrackAPIUtil.createTrack(track).then(response => {
-    return dispatch(receiveTrack(response));
+    dispatch(receiveTrack(response));
+    dispatch(receiveUploadStatus(false));
+
+  }).then(() => {
+    hashHistory.push("/home");
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));
   });

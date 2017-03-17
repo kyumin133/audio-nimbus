@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 class TracksIndexItem extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class TracksIndexItem extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.currentTrack !== null) {
+    if (!!this.props.currentTrack) {
       if (this.props.currentTrack.id === this.props.track.id) {
         // console.log(this.props.currentTrackPlaying);
         this.setState({
@@ -31,7 +32,7 @@ class TracksIndexItem extends React.Component {
     }
   }
   componentWillReceiveProps(newProps) {
-    if (newProps.currentTrack !== null) {
+    if (!!newProps.currentTrack) {
       if (newProps.currentTrack.id === this.props.track.id) {
         this.setState({
           paused: !newProps.currentTrackPlaying,
@@ -54,6 +55,7 @@ class TracksIndexItem extends React.Component {
 
   render() {
     let track = this.props.track;
+    if (track === undefined) return null;
     let playPauseIcon = <i className="fa fa-play index-play" aria-hidden="true"></i>;
     let divName = "unselected-circle";
     let liClass = "track-index-item";
@@ -65,14 +67,16 @@ class TracksIndexItem extends React.Component {
     if (!this.state.paused) {
       playPauseIcon = <i className="fa fa-pause index-pause" aria-hidden="true"></i>;
     }
+
+
     return  <li className={liClass}>
-              <img className="index-img" src={track.imageUrl}></img>
+              <Link to={`/track/${track.id}`}><img className="index-img" src={track.imageUrl}></img></Link>
               <div className={divName} onClick={this.playPauseTrack}>
                 {playPauseIcon}
               </div>
               <div className="track-info">
                 <span className="track-info-artist">{track.artistName}</span>
-                <span className="track-info-title">{track.title}</span>
+                <Link to={`/track/${track.id}`}><span className="track-info-title">{track.title}</span></Link>
               </div>
             </li>
   }
