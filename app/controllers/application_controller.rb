@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    session[:session_token] ? true : false
+    User.find_by(session_token: session[:session_token]).nil? ? false : true
   end
 
   def current_user

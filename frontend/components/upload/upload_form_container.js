@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-// import { logout } from "../../actions/session_actions";
+import { createTrack } from "../../actions/track_actions";
 import UploadForm from "./upload_form";
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,6 +10,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    createTrack: (track) => {
+      dispatch(createTrack(track));
+    }
   };
 };
 

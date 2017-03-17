@@ -17,9 +17,9 @@ class TracksIndex extends React.Component {
     // console.log(this.props.tracks);
 
     let tracksArr = this.props.tracks.map((track, idx) => {
-      return <TracksIndexItem playTrack={this.props.playTrack} key={idx} track={track}></TracksIndexItem>;
+      return <TracksIndexItem playPauseTrack={this.props.playPauseTrack} key={idx} track={track} currentTrack={this.props.currentTrack} currentTrackPlaying={this.props.currentTrackPlaying}></TracksIndexItem>;
     });
-    return <ul>{tracksArr}</ul>;
+    return <ul className="track-index">{tracksArr}</ul>;
   }
 }
 

@@ -49,7 +49,7 @@ class NavBar extends React.Component {
     if (loggedIn) {
       return  <nav>
                 <ul>
-                  <li>Upload</li>
+                  <Link to={"/upload"}><li className="demo">Upload</li></Link>
                   <Link to={"/edit_profile"}><li>Profile</li></Link>
                   <li onClick={this.logout}>Sign Out</li>
                 </ul>

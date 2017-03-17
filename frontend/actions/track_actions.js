@@ -1,15 +1,23 @@
 import TrackAPIUtil from '../util/track_api_util';
 
-export const RECEIVE_PLAY_TRACK = "RECEIVE_PLAY_TRACK";
+export const RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO = "RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO";
+export const RECEIVE_PLAY_PAUSE_TRACK = "RECEIVE_PLAY_PAUSE_TRACK";
 export const STOP_CURRENT_TRACK = "STOP_CURRENT_TRACK";
 export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 
-export const receivePlayTrack = (track) => {
+export const receivePlayPauseTrackFromAudio = (paused) => {
   return {
-    type: RECEIVE_PLAY_TRACK,
+    type: RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO,
+    paused
+  }
+}
+
+export const receivePlayPauseTrack = (track) => {
+  return {
+    type: RECEIVE_PLAY_PAUSE_TRACK,
     track
   };
 };
@@ -53,6 +61,18 @@ export const fetchTrack = (track) => (dispatch) => {
   });
 };
 
-export const playTrack = (track) => (dispatch) => {
-  return dispatch(receivePlayTrack(track));
+export const playPauseTrack = (track) => (dispatch) => {
+  return dispatch(receivePlayPauseTrack(track));
+}
+
+export const playPauseTrackFromAudio = (paused) => (dispatch) => {
+  return dispatch(receivePlayPauseTrackFromAudio(paused));
+}
+
+export const createTrack = (track) => (dispatch) => {
+  return TrackAPIUtil.createTrack(track).then(response => {
+    return dispatch(receiveTrack(response));
+  }).fail(errors => {
+    return dispatch(receiveErrors(JSON.parse(errors.responseText)));
+  });
 }

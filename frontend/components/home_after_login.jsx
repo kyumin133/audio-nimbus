@@ -4,16 +4,12 @@ import AudioContainer from "./audio/audio_container";
 
 class HomeAfterLogin extends React.Component {
   render() {
-    return  <div className="body-audio">
-              <div className="home-body">
-                <div className="margin-div"></div>
-                <div className="main-div">
-                  <TracksIndexContainer />
-                </div>
-                <div className="margin-div"></div>
-
+    return  <div className="home-body">
+              <div className="margin-div"></div>
+              <div className="main-div">
+                <TracksIndexContainer />
               </div>
-              <AudioContainer />
+              <div className="margin-div"></div>
             </div>
   }
 }

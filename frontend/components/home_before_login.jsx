@@ -12,6 +12,7 @@ class HomeBeforeLogin extends React.Component {
       </div>
       <div className="margin-div"></div>
     </div>
+
   }
 }
 

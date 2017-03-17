@@ -1,16 +1,17 @@
 import { connect } from "react-redux";
-import { playTrack } from "../../actions/track_actions";
+import { playPauseTrackFromAudio } from "../../actions/track_actions";
 import Audio from "./audio";
 
 const mapStateToProps = (state, ownProps) => {
   return {
     track: state.trackInfo.currentTrack,
+    paused: !state.trackInfo.currentTrackPlaying
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    playTrack: () => dispatch(playTrack())
+    playPauseTrackFromAudio: (paused) => dispatch(playPauseTrackFromAudio(paused))
   };
 };
 

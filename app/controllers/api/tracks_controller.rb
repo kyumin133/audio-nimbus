@@ -15,6 +15,7 @@ class Api::TracksController < ApplicationController
     if @track.save
       render :show
     else
+      byebug
       render json: @track.errors.full_messages, status: 422
     end
   end
@@ -37,6 +38,7 @@ class Api::TracksController < ApplicationController
   end
 
   def track_params
+    params[:track][:image] = nil if params[:track][:image] == "null"
     params.require(:track).permit(:artist_id, :title, :image, :music)
   end
 end
