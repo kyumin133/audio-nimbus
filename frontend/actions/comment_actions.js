@@ -47,13 +47,8 @@ export const fetchComment = (comment) => (dispatch) => {
 };
 
 export const createComment = (comment) => (dispatch) => {
-  dispatch(receiveUploadStatus(true));
   return CommentAPIUtil.createComment(comment).then(response => {
     dispatch(receiveComment(response));
-    dispatch(receiveUploadStatus(false));
-
-  }).then(() => {
-    hashHistory.push("/home");
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));
   });

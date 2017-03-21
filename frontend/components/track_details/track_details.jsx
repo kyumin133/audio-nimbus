@@ -1,5 +1,6 @@
 import React from "react";
 import CommentsIndexContainer from "../comments/comments_index_container";
+import CommentFormContainer from "../comments/comment_form_container";
 
 class TrackDetails extends React.Component {
   constructor(props) {
@@ -191,7 +192,8 @@ class TrackDetails extends React.Component {
                   </div>
                   {imgWrapper}
                 </div>
-                <CommentsIndexContainer commentType="track" commentableId={track.id}/>
+                <CommentFormContainer commentType="Track" commentableId={track.id} />
+                <CommentsIndexContainer commentType="Track" commentableId={track.id} />
               </div>
               <div className="margin-div"></div>
             </div>

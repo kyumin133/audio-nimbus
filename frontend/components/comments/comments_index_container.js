@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let fetchComments;
-  if (ownProps.commentType === "user") {
+  if (ownProps.commentType === "User") {
     fetchComments = (userId) => dispatch(fetchCommentsByUser(userId));
   } else {
     fetchComments = (trackId) => dispatch(fetchCommentsByTrack(trackId));

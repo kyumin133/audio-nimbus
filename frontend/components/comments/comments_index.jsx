@@ -9,6 +9,9 @@ class CommentsIndex extends React.Component {
     if (this.props.commentableId !== newProps.commentableId) {
       this.props.fetchComments(newProps.commentableId);
     }
+    if (this.props.comments.length !== newProps.comments.length) {
+      this.props.fetchComments(this.props.commentableId);
+    }
   }
 
   render() {

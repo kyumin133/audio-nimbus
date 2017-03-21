@@ -1,11 +1,11 @@
 import { RECEIVE_COMMENTS, RECEIVE_COMMENT, REMOVE_COMMENT, RECEIVE_ERRORS } from "../actions/comment_actions";
 import merge from 'lodash/merge';
 
-const initialState = {}
+const initialState = [];
 
 const commentReducer = (state = initialState, action) => {
-  Object.freeze(state);
-  let newState = merge({}, state);
+  Object.freeze(state);  
+  let newState = state.slice();
 
   switch (action.type) {
     case RECEIVE_COMMENTS:
@@ -20,8 +20,10 @@ const commentReducer = (state = initialState, action) => {
         }
       }
 
-      if (index = -1) {
+      if (newState.length === 0) {
         newState = [action.comment];
+      } else if (index = -1) {
+        newState.push(action.comment);
       } else {
         newState[index] = action.comment;
       }
