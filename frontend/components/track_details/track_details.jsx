@@ -20,9 +20,8 @@ class TrackDetails extends React.Component {
       imageFile: null,
       savedTitle: "",
       savedImageUrl: "",
-      savedImagFile: null
+      savedImageFile: null
     }
-
   }
 
   cancelChanges() {
@@ -92,11 +91,20 @@ class TrackDetails extends React.Component {
     }
   }
 
+  componentDidMount() {
+  }
+
   componentWillReceiveProps(newProps) {
     if (newProps.params.trackId !== this.props.params.trackId) {
       this.props.fetchTrack(newProps.params.trackId);
     }
     if (!!newProps.track) {
+      // this.wavesurfer = WaveSurfer.create({
+      //   container: "#root",
+      //   waveColor: 'red',
+      //   progressColor: 'purple'
+      // });
+      // this.wavesurfer.load(newProps.track.musicUrl);
       this.setState({ title: newProps.track.title,
                       savedTitle: newProps.track.title,
                       imageUrl: newProps.track.imageUrl,
