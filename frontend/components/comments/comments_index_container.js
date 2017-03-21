@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchCommentsByUser, fetchCommentsByTrack } from "../../actions/comment_actions";
+import { fetchCommentsByUser, fetchCommentsByTrack, deleteComment } from "../../actions/comment_actions";
 import CommentsIndex from "./comments_index";
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,7 +17,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 
   return {
-    fetchComments: fetchComments
+    fetchComments: fetchComments,
+    deleteComment: (commentId) => dispatch(deleteComment(commentId))
   };
 };
 

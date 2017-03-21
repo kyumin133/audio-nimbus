@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => {
     track: state.trackInfo.track,
     currentTrack: state.trackInfo.currentTrack,
     currentTrackPlaying: state.trackInfo.currentTrackPlaying,
-    currentUser: state.session.currentUser
+    userId: state.session.currentUser.id
   };
 };
 

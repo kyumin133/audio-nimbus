@@ -4,7 +4,7 @@ import merge from 'lodash/merge';
 const initialState = [];
 
 const commentReducer = (state = initialState, action) => {
-  Object.freeze(state);  
+  Object.freeze(state);
   let newState = state.slice();
 
   switch (action.type) {
@@ -23,14 +23,24 @@ const commentReducer = (state = initialState, action) => {
       if (newState.length === 0) {
         newState = [action.comment];
       } else if (index = -1) {
-        newState.push(action.comment);
+        newState.unshift(action.comment);
       } else {
         newState[index] = action.comment;
       }
 
       return newState;
     case REMOVE_COMMENT:
-      delete newState.comments[action.comment.id];
+      index = -1;
+      for (let i = 0; i < newState.length; i++) {
+        if (newState[i].id === action.comment.id) {
+          index = i;
+          break;
+        }
+      }
+      if ((index === -1) || (newState.length === 0)) {
+        return newState;
+      }
+      newState = newState.splice(index, 1);
       return newState;
     case RECEIVE_ERRORS:
       newState.errors = action.errors;

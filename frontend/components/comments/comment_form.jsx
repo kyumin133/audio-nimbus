@@ -18,6 +18,7 @@ class CommentForm extends React.Component {
 
   handleKeyPress(e) {
     if (e.key === "Enter") {
+      e.preventDefault();
       let formData = new FormData();
       formData.append("comment[commentable_type]", this.props.commentType);
       formData.append("comment[commentable_id]", this.props.commentableId);

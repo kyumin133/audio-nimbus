@@ -149,7 +149,7 @@ class TrackDetails extends React.Component {
                         <img className="details-img" src={imgSrc}></img>
                       </div>;
     let titleWrapper = <div className="details-title-wrapper"><span className="details-title">{track.title}</span></div>;
-    if (this.props.currentUser.id === track.artistId) {
+    if (this.props.userId === track.artistId) {
       imgWrapper = <div className="details-img-wrapper">
         <input id="details-img-input" className="hidden" type="file" accept="image/*" onChange={this.changePicture} />
         <label htmlFor="details-img-input" className="details-img-label"><i className="fa fa-camera" aria-hidden="true"></i></label>
@@ -192,8 +192,8 @@ class TrackDetails extends React.Component {
                   </div>
                   {imgWrapper}
                 </div>
-                <CommentFormContainer commentType="Track" commentableId={track.id} />
-                <CommentsIndexContainer commentType="Track" commentableId={track.id} />
+                <CommentFormContainer commentType="Track" commentableId={track.id}/>
+                <CommentsIndexContainer commentType="Track" commentableId={track.id} userId={this.props.userId}/>
               </div>
               <div className="margin-div"></div>
             </div>

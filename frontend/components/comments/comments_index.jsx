@@ -28,7 +28,7 @@ class CommentsIndex extends React.Component {
     }
 
     let commentsArr = this.props.comments.map((comment, idx) => {
-      return <CommentsIndexItem key={comment.id} comment={comment}></CommentsIndexItem>;
+      return <CommentsIndexItem key={comment.id} comment={comment} userId={this.props.userId}></CommentsIndexItem>;
     });
     return <ul className="comment-index">{commentsArr}</ul>;
   }

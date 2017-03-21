@@ -12,6 +12,15 @@ class CommentsIndexItem extends React.Component {
     if (!comment) {
       return null;
     }
+
+    let deleteIcon = "";
+    let overlay = "";
+    let commentTextClass = "comment-text";
+    if (comment.commenter.id === this.props.userId) {
+      deleteIcon = <span className="delete-comment"><i className="fa fa-trash-o" aria-hidden="true"></i></span>;
+      overlay = <div className="comment-overlay">{deleteIcon}</div>;
+      commentTextClass = "comment-text-editable"
+    }
     return  <li className="comment-index-item">
               <div className="comment-left">
                 <div className="comment-img-wrapper">
@@ -19,10 +28,11 @@ class CommentsIndexItem extends React.Component {
                 </div>
                 <div className="comment-content">
                   <span className="comment-username">{comment.commenter.username}</span>
-                  <span className="comment-text">{comment.text}</span>
+                  <span className={commentTextClass}>{comment.text}</span>
                 </div>
               </div>
               <div className="comment-right">{time_ago_english.format(new Date(comment.updatedAt))}</div>
+              {overlay}
             </li>
   }
 }

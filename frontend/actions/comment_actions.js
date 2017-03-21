@@ -17,6 +17,11 @@ export const receiveComment = (comment) => ({
   comment
 });
 
+export const removeComment = (comment) => ({
+  type: REMOVE_COMMENT,
+  comment
+});
+
 export const receiveErrors = (errors) => ({
   type: RECEIVE_ERRORS,
   errors
@@ -49,6 +54,14 @@ export const fetchComment = (comment) => (dispatch) => {
 export const createComment = (comment) => (dispatch) => {
   return CommentAPIUtil.createComment(comment).then(response => {
     dispatch(receiveComment(response));
+  }).fail(errors => {
+    return dispatch(receiveErrors(JSON.parse(errors.responseText)));
+  });
+}
+
+export const deleteComment = (commentId) => (dispatch) => {
+  return CommentAPIUtil.deleteComment(commentId).then(response => {
+    dispatch(removeComment(response));
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));
   });
