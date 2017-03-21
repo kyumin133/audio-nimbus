@@ -27,6 +27,17 @@ const TrackAPIUtil = {
         console.log(error.responseText);
       }
     });
+  },
+
+  updateTrack: (id, track) => {
+    return $.ajax({
+      url: `api/tracks/${id}`,
+      type: "PATCH",
+      data: track,
+      processData: false,
+      contentType: false,
+      dataType: 'json'
+    })
   }
 };
 

@@ -1,4 +1,5 @@
 const path = require('path');
+var WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 module.exports = {
   context: __dirname,
@@ -22,5 +23,12 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new WebpackBuildNotifierPlugin({
+      title: "AudioNimbus Webpack Build",
+      logo: path.resolve("./app/assets/images/logopng"),
+      suppressSuccess: true
+    })
+  ],
   devtool: 'source-maps'
 };

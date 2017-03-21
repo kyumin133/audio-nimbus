@@ -165,8 +165,18 @@
   cursor: pointer;
 }
 
+.submit-upload-disabled {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(200, 200, 200);
+  text-align: center;
+  color: white;
+  // font-weight: 700;
+}
+
 .upload-modal {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 3;
@@ -177,4 +187,27 @@
 
 .uploading {
   font-size: 36px;
+}
+
+@keyframes load {
+    0% {
+      transform: rotate(-30deg)
+    }
+
+    50% {
+      transform: rotate(30deg)
+    }
+
+    100% {
+      transform: rotate(-30deg)
+    }
+
+}
+
+.music-spinner {
+  font-size: 36px;
+  animation-name: load;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }

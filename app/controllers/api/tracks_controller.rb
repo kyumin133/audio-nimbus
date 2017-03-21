@@ -15,7 +15,6 @@ class Api::TracksController < ApplicationController
     if @track.save
       render :show
     else
-      byebug
       render json: @track.errors.full_messages, status: 422
     end
   end
@@ -23,7 +22,13 @@ class Api::TracksController < ApplicationController
   def update
     @track = Track.find_by(id: params[:id])
     render json: "Can't find track", status: 404 if @track.nil?
-    if @track.save
+    # byebug
+    tp = track_params
+    if (tp[:image]) == @track.image.url
+      tp.delete(:image)
+    end
+
+    if @track.update(tp)
       render :show
     else
       render json: @track.errors.full_messages, status: 422
@@ -39,6 +44,6 @@ class Api::TracksController < ApplicationController
 
   def track_params
     params[:track][:image] = nil if params[:track][:image] == "null"
-    params.require(:track).permit(:artist_id, :title, :image, :music)
+    params.require(:track).permit(:id, :artist_id, :title, :image, :music)
   end
 end

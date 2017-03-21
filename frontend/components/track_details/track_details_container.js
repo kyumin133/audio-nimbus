@@ -1,21 +1,21 @@
 import { connect } from "react-redux";
+import { fetchTrack, playPauseTrack, updateTrack } from "../../actions/track_actions";
 import TrackDetails from "./track_details";
 
 const mapStateToProps = (state, ownProps) => {
-  let track = state.trackInfo.tracks[0];
-  for (let i = 0; i < state.trackInfo.tracks.length; i++) {
-    if (ownProps.params.trackId === state.trackInfo.tracks[i]) {
-      track = state.trackInfo.tracks[i];
-      break;
-    }
-  }
   return {
-    track: track
+    track: state.trackInfo.track,
+    currentTrack: state.trackInfo.currentTrack,
+    currentTrackPlaying: state.trackInfo.currentTrackPlaying,
+    currentUser: state.session.currentUser
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    fetchTrack: (trackId) => dispatch(fetchTrack(trackId)),
+    playPauseTrack: (track) => dispatch(playPauseTrack(track)),
+    updateTrack: (trackId, track) => dispatch(updateTrack(trackId, track))
   };
 };
 

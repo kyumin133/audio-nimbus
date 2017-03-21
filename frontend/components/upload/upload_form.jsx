@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import ReactModal from "react-modal";
-import UserAPIUtil from "../../util/user_api_util"
+import UserAPIUtil from "../../util/user_api_util";
 
 class UploadForm extends React.Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class UploadForm extends React.Component {
       musicFile: null,
       musicFileName: "Select Song",
       artistId: this.props.currentUser.id,
-      showUploadModal: false
+      showUploadModal: false,
+      error: ""
     }
   }
 
@@ -35,6 +36,10 @@ class UploadForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if ((this.state.title === "") || (this.state.musicUrl === "")) {
+      return;
+    }
+
     let formData = new FormData();
     formData.append("track[image]", this.state.imageFile);
     formData.append("track[music]", this.state.musicFile)
@@ -83,9 +88,15 @@ class UploadForm extends React.Component {
   render() {
     let pic = "";
 
+
     let imgSrc = this.state.imageUrl;
     if(imgSrc.length === 0) {
       imgSrc = "/assets/track.jpeg";
+    }
+
+    let submitUpload = <input type="submit" className="submit-upload" value="Upload"></input>;
+    if ((this.state.title === "") || (this.state.musicUrl === "" )) {
+      submitUpload =  <input type="submit" disabled="disabled" className="submit-upload-disabled" value="Upload"></input>;
     }
 
     // console.log(this.state.showUploadModal);
@@ -94,6 +105,7 @@ class UploadForm extends React.Component {
          contentLabel="Upload Form modal"
          className="upload-modal" >
         <span className="uploading">Uploading...</span>
+        <span className="music-spinner"><i className="fa fa-music" aria-hidden="true"></i></span>
       </ReactModal>;
 
     let imgLabel = (this.state.showUploadModal) ? "" : <label htmlFor="upload-img-input" className="upload-img-label"><i className="fa fa-camera" aria-hidden="true"></i></label>
@@ -109,12 +121,12 @@ class UploadForm extends React.Component {
                       <img className="upload-img" src={imgSrc}></img>
                     </div>
                     <div className="upload-form-right">
-                      <input type="text" className="box" value={this.state.title} onChange={this.update("title")} placeholder="Title"></input>
+                      <input type="text" className="box" autoFocus value={this.state.title} onChange={this.update("title")} placeholder="Title"></input>
                       <input type="file" className="upload-music-input" id="upload-music-input" accept="audio/mpeg3" onChange={this.changeMusic} />
                       <label htmlFor="upload-music-input" className="upload-music-label box">{this.state.musicFileName}</label>
                       <div className="upload-form-buttons">
                         <button type="button" onClick={this.cancel} className="cancel-upload">Cancel</button>
-                        <input type="submit" className="submit-upload" value="Upload"></input>
+                        {submitUpload}
                       </div>
                     </div>
                   </div>

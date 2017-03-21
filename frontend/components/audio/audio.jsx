@@ -15,6 +15,9 @@ class Audio extends React.Component {
   // }
   constructor(props) {
     super(props);
+    this.back = this.back.bind(this);
+    this.next = this.next.bind(this);
+    this.loadSong = this.loadSong.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
     this.updateTime = this.updateTime.bind(this);
     this.displayTime = this.displayTime.bind(this);
@@ -30,6 +33,24 @@ class Audio extends React.Component {
       previousVolume: 50
     }
 
+  }
+
+  back() {
+    if (this.rap.audioEl.currentTime > 1) {
+      this.rap.audioEl.currentTime = 0;
+    } else {
+      let tracks = this.props.tracks;
+      this.loadSong(tracks[(tracks.length + this.props.trackIndex - 1) % tracks.length]);
+    }
+  }
+
+  next() {
+    let tracks = this.props.tracks;
+    this.loadSong(tracks[(tracks.length + this.props.trackIndex + 1) % tracks.length]);
+  }
+
+  loadSong(track) {
+    this.props.playPauseTrack(track);
   }
 
   jumpProgress(e) {
@@ -68,14 +89,19 @@ class Audio extends React.Component {
   }
 
   updateTime() {
-    this.setState({
-      currentTime: this.displayTime(this.rap.audioEl.currentTime),
-      percent: 100 * this.rap.audioEl.currentTime / this.rap.audioEl.duration
-    });
+    if (this.rap.audioEl.currentTime === this.rap.audioEl.duration) {
+      this.next();
+    } else {
+      this.setState({
+        currentTime: this.displayTime(this.rap.audioEl.currentTime),
+        percent: 100 * this.rap.audioEl.currentTime / this.rap.audioEl.duration
+      });
+    }
   }
 
   start() {
     this.rap.audioEl.play();
+    this.rap.audioEl.volume = 0.5
     this.setState({
       paused: false,
       currentTime: this.displayTime(this.rap.audioEl.currentTime),
@@ -117,6 +143,7 @@ class Audio extends React.Component {
     if (this.rap === undefined) {
       return;
     }
+    // console.log(newProps);
     if (newProps.paused !== this.props.paused) {
       (this.rap.audioEl.paused) ? this.rap.audioEl.play() : this.rap.audioEl.pause();
       this.setState({paused: !this.state.paused});
@@ -145,9 +172,9 @@ class Audio extends React.Component {
     return  <div className="audio">
               <div className="controls-div">
                 <ul className="controls-ul">
-                  <li><i className="fa fa-step-backward" aria-hidden="true"></i></li>
+                  <li onClick={this.back}><i className="fa fa-step-backward" aria-hidden="true"></i></li>
                   <li onClick={this.togglePlay}>{playPauseIcon}</li>
-                  <li><i className="fa fa-step-forward" aria-hidden="true"></i></li>
+                  <li onClick={this.next}><i className="fa fa-step-forward" aria-hidden="true"></i></li>
                 </ul>
               </div>
               <div className="audio-player">
@@ -167,10 +194,10 @@ class Audio extends React.Component {
               </div>
               <ReactAudioPlayer ref={c => this.rap = c } onCanPlay={this.start} className="hidden" id="audio" src={track.musicUrl} controls={false} preload="auto" autoplay={true}/>
               <div className="audio-details-div">
-                <Link to={`/track/${track.id}`}><img src={track.imageUrl} className="audio-img"></img></Link>
+                <Link className="track-details-link" to={`/track/${track.id}`}><img src={track.imageUrl} className="audio-img"></img></Link>
                 <div className="audio-text-details">
                   <span className="track-info-artist">{track.artistName}</span>
-                  <span className="track-info-title"><Link to={`/track/${track.id}`}>{track.title}</Link></span>
+                  <span className="track-info-title"><Link className="track-details-link" to={`/track/${track.id}`}>{track.title}</Link></span>
                 </div>
               </div>
             </div>

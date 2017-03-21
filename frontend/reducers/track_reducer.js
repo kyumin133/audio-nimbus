@@ -28,7 +28,7 @@ const trackReducer = (state = initialState, action) => {
       } else {
         newState.currentTrackPlaying = true;
       }
-      
+
       return newState;
     case STOP_CURRENT_TRACK:
       newState.currentTrack = null;
@@ -37,7 +37,12 @@ const trackReducer = (state = initialState, action) => {
       newState.tracks = action.tracks;
       return newState;
     case RECEIVE_TRACK:
-      newState.tracks[action.track.id] = action.track;
+      newState.track = action.track;
+      if (state.currentTrack !== null) {
+        if (state.currentTrack.id === action.track.id) {
+          newState.currentTrack = action.track;
+        }
+      }
       return newState;
     case REMOVE_TRACK:
       delete newState.tracks[action.track.id];

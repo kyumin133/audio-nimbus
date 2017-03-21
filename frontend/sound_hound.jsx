@@ -5,6 +5,7 @@ import { login } from './actions/session_actions';
 
 import SessionAPIUtil from './util/session_api_util';
 import TrackAPIUtil from './util/track_api_util';
+import CommentAPIUtil from './util/comment_api_util';
 
 import configureStore from './store/store';
 import AWS from 'aws-sdk';
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.login = login;
   window.SessionAPIUtil = SessionAPIUtil;
   window.TrackAPIUtil = TrackAPIUtil;
+  window.CommentAPIUtil = CommentAPIUtil;
 
   ReactDOM.render(<Root store={ store }/>, root);
 });

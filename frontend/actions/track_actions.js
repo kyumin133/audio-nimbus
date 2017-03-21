@@ -61,7 +61,7 @@ export const fetchTracks = (user) => (dispatch) => {
 };
 
 export const fetchTrack = (track) => (dispatch) => {
-  return TrackAPIUtil.fetchTracks(track).then(response => {
+  return TrackAPIUtil.fetchTrack(track).then(response => {
     return dispatch(receiveTrack(response));
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));
@@ -84,6 +84,14 @@ export const createTrack = (track) => (dispatch) => {
 
   }).then(() => {
     hashHistory.push("/home");
+  }).fail(errors => {
+    return dispatch(receiveErrors(JSON.parse(errors.responseText)));
+  });
+}
+
+export const updateTrack = (id, track) => (dispatch) => {
+  return TrackAPIUtil.updateTrack(id, track).then(response => {
+    dispatch(receiveTrack(response));
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));
   });
