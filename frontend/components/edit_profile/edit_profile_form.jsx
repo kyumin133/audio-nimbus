@@ -37,7 +37,7 @@ class EditProfileForm extends React.Component {
     if (this.state.imageUrl.length === 0) {
       picClass = "profile-pic hidden";
     }
-    return  <form onSubmit={this.handleSubmit}>
+    let toDo = <form onSubmit={this.handleSubmit}>
               <div className="profile-pic-wrapper">
                 <input type="file" accept="image/*" onChange={this.changePicture} />
                 <img className={picClass} src={this.state.imageUrl}></img>
@@ -45,6 +45,7 @@ class EditProfileForm extends React.Component {
               <input type="submit" value="Save"></input>
               <button type="button">Cancel</button>
             </form>;
+    return <div>Coming soon!</div>
   }
 }
 
