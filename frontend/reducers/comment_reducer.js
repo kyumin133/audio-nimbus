@@ -40,6 +40,9 @@ const commentReducer = (state = initialState, action) => {
       if ((index === -1) || (newState.length === 0)) {
         return newState;
       }
+      if (newState.length === 1) {
+        return [];
+      }
       newState = newState.splice(index, 1);
       return newState;
     case RECEIVE_ERRORS:

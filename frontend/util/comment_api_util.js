@@ -52,6 +52,13 @@ const CommentAPIUtil = {
       contentType: false,
       dataType: 'json'
     })
+  },
+
+  deleteComment: (id) => {
+    return $.ajax({
+      url: `api/comments/${id}`,
+      type: "DELETE"
+    });
   }
 };
 

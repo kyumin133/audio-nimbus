@@ -88,6 +88,7 @@ footer a:hover {
   width: 90%;
   height: 100%;
   position: relative;
+  /*height: fit-content;*/
   overflow-y: auto;
   background-color: white;
   display: flex;

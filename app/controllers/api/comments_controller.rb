@@ -35,7 +35,7 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.find_by(id: params[:id])
     render json: "Can't find comment", status: 404 if @comment.nil?
     @comment.destroy
-    index
+    render :show
   end
 
   def comment_params
