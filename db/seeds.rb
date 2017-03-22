@@ -21,20 +21,21 @@ User.create({
   email: "demo@demo.com"
   })
 
-Dir.foreach("app/assets/music/artwork") do |el|
-  next if el !~ /.*\.jpe?g/
+# Dir.foreach("app/assets/music/artwork") do |el|
+#   next if el !~ /.*\.jpe?g/
+#
+#   title = el.sub(/\.jpe?g/, "")
+#   image = File.open("app/assets/music/artwork/#{el}")
+#   music = File.open("app/assets/music/tracks/#{title}.mp3")
+#
+#   Track.create({
+#     title: title,
+#     image: image,
+#     music: music,
+#     artist_id: User.all.sample.id
+#   })
+# end
 
-  title = el.sub(/\.jpe?g/, "")
-  image = File.open("app/assets/music/artwork/#{el}")
-  music = File.open("app/assets/music/tracks/#{title}.mp3")
-
-  Track.create({
-    title: title,
-    image: image,
-    music: music,
-    artist_id: User.all.sample.id
-  })
-end
 # tracks = ["cards", "citylights", "bach", "sunset"]
 # track_names = ["The Man in a House of Cards", "City Lights", "Concerto for Two Violins in d minor (Guitar)", "What a Beautiful Sunset!"]
 # artist_ids = [User.first.id, User.last.id]

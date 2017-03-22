@@ -126,15 +126,19 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   /*background-color: paleturquoise;*/
 }
 
 .track-info-artist {
   color: rgb(125, 125, 125);
   font-size: 14px;
+  text-align: left;
+  /*background-color: mistyrose;*/
 }
 
 .track-info-title {
+  text-align: left;
   font-size: 16px;
 }
 .track-index-item:last-of-type {

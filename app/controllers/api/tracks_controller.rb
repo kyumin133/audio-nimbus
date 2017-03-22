@@ -1,6 +1,6 @@
 class Api::TracksController < ApplicationController
   def index
-    @tracks = Track.all.order("created_at DESC")
+    @tracks = Track.all.order("created_at DESC").limit(10)
     render :index
   end
 
