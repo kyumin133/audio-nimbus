@@ -12,6 +12,7 @@
     username: Faker::Internet.user_name,
     password: "password",
     email: Faker::Internet.email
+    image: open(Faker::LoremPixel.image("480x480", false, 'people'))
   })
 end
 
@@ -49,4 +50,21 @@ User.create({
 #       music: music,
 #       artist_id: artist_ids[i % 2]
 #     })
+# end
+
+# 100.times do
+#   shows = [Faker::Friends, Faker::HarryPotter, Faker::StarWars, Faker::GameOfThrones]
+#   quote = shows.sample.quote
+#   Comment.create({
+#     commentable_type: :Track,
+#     commentable_id: Track.all.sample.id,
+#     text: Faker::TwinPeaks.quote,
+#     commenter_id: User.all.sample.id
+#     })
+# end
+#
+#
+# User.all.each do |user|
+#   user.image = open(Faker::LoremPixel.image("480x480", false, 'people'))
+#   user.save
 # end
