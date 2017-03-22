@@ -25,7 +25,7 @@ class App extends React.Component {
       footer = <footer>
         <div className="img-src">Icon made by <a href="http://www.flaticon.com/authors/anhgreen" title="anhgreen">anhgreen</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a></div>
         <div className="img-src">
-          Music provided by <a href="freemusicpublicdomain.com"> Exzel Music Publishing </a> <br />
+          Music provided by <a href="http://incompetech.com/music/royalty-free/">Incompetech</a> <br />
           Licensed under <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons</a>: By Attribution 3.0 <br />
         </div>
       </footer>;
