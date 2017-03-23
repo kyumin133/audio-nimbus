@@ -131,7 +131,46 @@ Screenshot:
 ![audio screenshot](docs/screenshots/audio.png)
 
 ### Colors
-SoundCloud changes the background color of profile pages based on the color of the profile picture.
+SoundCloud changes the background color of profile pages based on the color of the profile picture. AudioNimbus mimics this functionality using the Miro gem.
+
+After a track image or profile image is saved to AWS, the model calls Miro to get the most dominant colors in the image by RGB value.
+
+```ruby
+// track.rb, user.rb
+after_save :get_dominant_colors!
+
+// application_record.rb
+private
+def get_dominant_colors!
+  url = self.image.url
+  colors = Miro::DominantColors.new(url).to_rgb
+  [...]
+end
+```
+
+The model then finds the dominant colors with the lowest and highest brightnesses, using the formula ```brightness = 0.2126 * red + 0.7152 * green + 0.0722 * blue```. This is saved as an array in the ```:dominant_colors``` column.
+
+```ruby
+  self.update_column(:dominant_colors, [colors[max_brightness_index], colors[min_brightness_index]])
+```
+
+The React front-end applies a linear gradient background style based on these two dominant colors.
+
+```jsx
+// track_details.jsx
+let bannerBackground = {
+  background: `linear-gradient(135deg, ${this.state.darkestColor} 0%, ${this.state.lightestColor} 100%)`
+};
+
+<div className="track-details-banner" style={bannerBackground}>
+```
+
+The end result is a background that changes depending on the image's dominant colors.
+
+Examples:
+![color 1](docs/screenshots/color_1.png)
+![color 2](docs/screenshots/color_2.png)
+![color 3](docs/screenshots/color_3.png)
 
 ## Future Work
 ### Waveforms
