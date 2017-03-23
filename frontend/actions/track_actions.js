@@ -8,7 +8,7 @@ export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
 export const RECEIVE_ALL_TRACKS = "RECEIVE_ALL_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
-export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
 export const RECEIVE_UPLOAD_STATUS = "RECEIVE_UPLOAD_STATUS";
 
 export const receivePlayPauseTrackFromAudio = (paused) => {
@@ -51,7 +51,7 @@ export const receiveTrack = (track) => ({
 });
 
 export const receiveErrors = (errors) => ({
-  type: RECEIVE_ERRORS,
+  type: RECEIVE_TRACK_ERRORS,
   errors
 });
 
@@ -90,8 +90,8 @@ export const playPauseTrackFromAudio = (paused) => (dispatch) => {
 export const createTrack = (track) => (dispatch) => {
   dispatch(receiveUploadStatus(true));
   return TrackAPIUtil.createTrack(track).then(response => {
-    dispatch(receiveTrack(response));
     dispatch(receiveUploadStatus(false));
+    return dispatch(receiveTrack(response));
 
   }).then(() => {
     hashHistory.push("/home");

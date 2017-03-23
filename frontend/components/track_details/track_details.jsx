@@ -131,32 +131,6 @@ class TrackDetails extends React.Component {
       // });
       // this.wavesurfer.load(newProps.track.musicUrl);
 
-      // let darkestColor = [255, 255, 255];
-      // let darkestColorSum = 765;
-      // let lightestColor = [0, 0, 0];
-      // let lightestColorSum = 0;
-      // let dominantColors = newProps.track.dominantColors;
-      // for (let i = 0; i < dominantColors.length; i++) {
-      //   let sum = dominantColors[i].reduce((a, b) => parseInt(a) + parseInt(b), 0);;
-      //   if ((sum < 60) || (sum > 705)) {
-      //     continue;
-      //   }
-      //
-      //   if (sum < darkestColorSum) {
-      //     darkestColorSum = sum;
-      //     darkestColor = dominantColors[i];
-      //   }
-      //   if (sum > lightestColorSum) {
-      //     lightestColorSum = sum;
-      //     lightestColor = dominantColors[i];
-      //   }
-      // }
-      //
-      // if (Math.abs(darkestColorSum - lightestColorSum) < 50) {
-      //   darkestColor = [71, 66, 66];
-      //   lightestColor = [180, 132, 110];
-      // }
-
       this.setState({ title: newProps.track.title,
                       savedTitle: newProps.track.title,
                       imageUrl: newProps.track.imageUrl,
@@ -251,7 +225,7 @@ class TrackDetails extends React.Component {
                   </div>
                   {imgWrapper}
                 </div>
-                <div className="comments-div" >
+                <div className="comments-div" >                  
                   <CommentFormContainer commentType="Track" commentableId={track.id}/>
                   <CommentsIndexContainer commentType="Track" commentableId={track.id} userId={this.props.userId}/>
                 </div>

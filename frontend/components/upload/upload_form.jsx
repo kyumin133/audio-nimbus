@@ -19,8 +19,7 @@ class UploadForm extends React.Component {
       musicFile: null,
       musicFileName: "Select Song",
       artistId: this.props.currentUser.id,
-      showUploadModal: false,
-      error: ""
+      showUploadModal: false
     }
   }
 
@@ -45,7 +44,12 @@ class UploadForm extends React.Component {
     formData.append("track[music]", this.state.musicFile)
     formData.append("track[artist_id]", this.props.currentUser.id)
     formData.append("track[title]", this.state.title)
-    this.props.createTrack(formData);
+    this.props.createTrack(formData).then(() => {}).fail((errors) => {
+      alert(this.props.errors[0]);
+      this.setState({
+        showUploadModal: false
+      })
+    });
   }
 
   changeMusic(e) {

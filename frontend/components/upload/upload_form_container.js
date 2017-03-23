@@ -5,14 +5,15 @@ import UploadForm from "./upload_form";
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
-    uploading: state.trackInfo.uploading
+    uploading: state.trackInfo.uploading,
+    errors: state.trackInfo.errors
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     createTrack: (track) => {
-      dispatch(createTrack(track));
+      return dispatch(createTrack(track));
     }
   };
 };

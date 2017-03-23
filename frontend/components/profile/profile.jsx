@@ -205,6 +205,7 @@ class Profile extends React.Component {
                         <div className="profile-img" style={{ backgroundImage: `url(${this.state.imageUrl})`}} ></div>
                       </div>;
     let usernameWrapper = <div className="profile-username-wrapper"><span className="profile-username">{this.state.username}</span></div>;
+
     if (this.props.currentUserId === user.id) {
       imgWrapper = <div className="profile-img-wrapper">
         <div className="profile-img" style={{ backgroundImage: `url(${this.state.imageUrl})`}} ></div>
@@ -249,6 +250,7 @@ class Profile extends React.Component {
                   {usernameWrapper}
                 </div>
                 <div className="profile-tracks">
+                  <div className="profile-tracks-title">Uploaded Tracks</div>
                   <TracksIndexContainer userId={user.id} showArtist={false} />
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import { RECEIVE_UPLOAD_STATUS, RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO, RECEIVE_PLAY_PAUSE_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_ALL_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_ERRORS } from "../actions/track_actions";
+import { RECEIVE_UPLOAD_STATUS, RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO, RECEIVE_PLAY_PAUSE_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_ALL_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_TRACK_ERRORS } from "../actions/track_actions";
 import { RECEIVE_PLAYING_USERNAME } from "../actions/user_actions";
 import merge from 'lodash/merge';
 
@@ -56,7 +56,7 @@ const trackReducer = (state = initialState, action) => {
     case REMOVE_TRACK:
       delete newState.tracks[action.track.id];
       return newState;
-    case RECEIVE_ERRORS:
+    case RECEIVE_TRACK_ERRORS:
       newState.errors = action.errors;
       return newState;
     default:
