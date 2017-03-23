@@ -142,19 +142,19 @@ Hidden audio tag:
 Calling ```this.rap``` allows the React component to directly access the ```<audio>``` tag and its properties/methods
 
 - Previous and Next buttons
-* The state contains a list of tracks to be played.
-* The current track's position on that list is stored to ```this.props```.
-* The Previous and Next buttons use this to load the correct track.
+  * The state contains a list of tracks to be played.
+  * The current track's position on that list is stored to ```this.props```.
+  * The Previous and Next buttons use this to load the correct track.
 - Play/Pause button
-* Audio properties/methods used: ```.play()```, ```.pause()```
-* This has to stay in sync with the other play/pause buttons on the site (for example, on the home page).
-* To accomplish this, all play/pause buttons on the website update the store to indicate whether or not the current track is playing.
+  * Audio properties/methods used: ```.play()```, ```.pause()```
+  * This has to stay in sync with the other play/pause buttons on the site (for example, on the home page).
+  * To accomplish this, all play/pause buttons on the website update the store to indicate whether or not the current track is playing.
 - Progress bar
-* Audio properties/methods used: ```currentTime```, ```duration```
-* This uses ```rc-progress``` to actually render the progress bar, updating it regularly using ```setInterval()```.
+  * Audio properties/methods used: ```currentTime```, ```duration```
+  * This uses ```rc-progress``` to actually render the progress bar, updating it regularly using ```setInterval()```.
 - Volume slider
-* Audio property used: ```volume```
-* This uses ```rc-slider``` to render the volume bar. The slider has an ```onChange``` event that updates the volume.
+  * Audio property used: ```volume```
+  * This uses ```rc-slider``` to render the volume bar. The slider has an ```onChange``` event that updates the volume.
 
 Screenshot:
 ![audio screenshot](docs/screenshots/audio.png)
