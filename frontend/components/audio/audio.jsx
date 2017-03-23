@@ -89,6 +89,10 @@ class Audio extends React.Component {
   }
 
   updateTime() {
+    if (!this.rap) {
+      clearInterval(this.interval);
+      return;
+    }
     if (this.rap.audioEl.currentTime === this.rap.audioEl.duration) {
       this.next();
     } else {
@@ -108,7 +112,7 @@ class Audio extends React.Component {
       duration: this.displayTime(this.rap.audioEl.duration),
       percent: 0
     });
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.updateTime();
     }, 100);
   }

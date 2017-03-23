@@ -1,10 +1,18 @@
 # AudioNimbus
+[Live link][heroku]
 
-[Heroku link][heroku]
+AudioNimbus is a music uploading web application inspired by SoundCloud. The
+application uses a PostgreSQL database, Ruby on Rails backend, AWS cloud hosting,
+and a React.js frontend with a Redux architectural framework.
+
+## Features & Implementation
+
+
+<!-- [Heroku link][heroku]
 
 [Trello link][trello]
 
-[heroku]: https://sound-hound.herokuapp.com/
+[heroku]: https://audionimb.us/
 [trello]: https://trello.com/b/auMfS3OH/soundhound
 
 ## Minimum Viable Product
@@ -63,4 +71,4 @@ sufficient CSS styling:
 ### Bonus Features (TBD)
 - [ ] Wave Forms
 - [ ] Playlists
-- [ ] Likes
+- [ ] Likes -->
