@@ -5,12 +5,11 @@
 
 AudioNimbus is a music uploading web application inspired by SoundCloud.
 
-## Technical Framework
+## Technical Details
 The
 application uses a PostgreSQL database, Ruby on Rails back-end, AWS cloud hosting,
 and a React.js frontend with a Redux architectural framework.
 
-## Features & Implementation
 ### Content Management
 #### Rails
 User profile pictures, track album art, and track audio mp3 files are all stored using AWS S3. I used the Paperclip gem to interface between Rails and AWS.
@@ -33,7 +32,7 @@ In the controller, ```:image``` and ```:music``` are handled like any other colu
 
 #### React/Redux
 
-Users upload files via ```<input type="file">``` elements in the front-end.
+Users upload files via ```<input type="file">``` elements in the front-end. These get saved in the component state using ```FileReader```.
 
 
 ```javascript
@@ -66,6 +65,9 @@ handleSubmit(e) {
   this.props.createTrack(formData);
 }
 
+// not shown: upload_form_container.js
+// not shown: track_actions.js
+
 // track_api_util.js
 createTrack: (formData) => {
   return $.ajax({
@@ -81,6 +83,37 @@ createTrack: (formData) => {
 
 
 ### Track Playback
+#### Continuous Play
+Navigating around the app does not interrupt playback. All pages within the app are set up to be children of the main App component, which contains the Audio component. This way, the Audio component does not refresh when navigating between pages.
+
+
+```jsx
+// root.jsx
+const Root = ({ store }) => {
+  return <Provider store={ store }>
+    <Router history={ hashHistory }>
+      <Route path="/" component={ App } >
+        <IndexRoute component={ Home } loggedIn={ !!window.currentUser }  />
+        [child routes]
+      </Route>
+    </Router>
+  </Provider>
+};
+// app.jsx
+render() {
+  [...]
+  return <div>
+    { header }
+    <div className="body-audio">
+      { this.props.children }
+      <AudioContainer />
+    </div>
+    { footer }
+  </div>
+}
+```
+![audio screenshot](docs/screenshots/audio.png)
+
 ### Colors
 SoundCloud changes the background color of profile pages based on the color
 of the profile picture.
