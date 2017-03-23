@@ -12,7 +12,7 @@ and a React.js frontend with a Redux architectural framework.
 
 ### Content Management
 #### Rails
-User profile pictures, track album art, and track audio mp3 files are all stored using AWS S3. I used the Paperclip gem to interface between Rails and AWS.
+User profile pictures, track album art, and track audio mp3 files are all stored using AWS S3. This app uses the Paperclip gem to interface between Rails and AWS.
 
 Tracks migration:
 ```ruby
@@ -116,7 +116,8 @@ render() {
 ```
 
 #### Custom Controls
-HTML handles audio playback through the ```<audio>``` tag. The ```react-audio-player``` package provides a light wrapper around the tag so that the player can be manipulated in React. However, the appearance and functionality of the ```<audio>``` tag are not easily customizable.
+HTML handles audio playback through the ```<audio>``` tag. The ```react-audio-player``` package provides a light wrapper around the tag so that the player can be manipulated in React. However, the appearance and functionality of the ```<audio>``` tag are not easily customizable and depend highly on the browser.
+![html audio comparison](docs/screenshots/html audio.png)
 
 To resolve this issue, I created a custom audio component. This custom component interacts with a hidden ```<audio>``` tag's methods and properties.
 
