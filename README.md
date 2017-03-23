@@ -6,7 +6,18 @@ application uses a PostgreSQL database, Ruby on Rails backend, AWS cloud hosting
 and a React.js frontend with a Redux architectural framework.
 
 ## Features & Implementation
-
+### User Authentication
+Do I need to talk about this?
+### Tracks
+All tracks are stored in a single table in the database.
+[Testing](### Colors)
+#### Upload
+#### Index
+#### Details
+#### Playback
+### Comments
+### User profiles
+### Colors
 
 <!-- [Heroku link][heroku]
 
