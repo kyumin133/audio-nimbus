@@ -5,6 +5,7 @@ export const RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO = "RECEIVE_PLAY_PAUSE_TRACK_FRO
 export const RECEIVE_PLAY_PAUSE_TRACK = "RECEIVE_PLAY_PAUSE_TRACK";
 export const STOP_CURRENT_TRACK = "STOP_CURRENT_TRACK";
 export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
+export const RECEIVE_ALL_TRACKS = "RECEIVE_ALL_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
@@ -37,6 +38,13 @@ export const receiveTracks = (tracks) => {
   };
 };
 
+export const receiveAllTracks = (tracks) => {
+  return {
+    type: RECEIVE_ALL_TRACKS,
+    tracks
+  }
+}
+
 export const receiveTrack = (track) => ({
   type: RECEIVE_TRACK,
   track
@@ -54,6 +62,9 @@ export const receiveUploadStatus = (uploading) => ({
 
 export const fetchTracks = (userId) => (dispatch) => {
   return TrackAPIUtil.fetchTracks(userId).then(response => {
+    if (userId === -1) {
+      dispatch(receiveAllTracks(response));
+    }
     return dispatch(receiveTracks(response));
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));

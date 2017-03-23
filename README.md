@@ -3,39 +3,96 @@
 
 [heroku]: http://audionimb.us/
 
-AudioNimbus is a music uploading web application inspired by SoundCloud. The
-application uses a PostgreSQL database, Ruby on Rails backend, AWS cloud hosting,
+AudioNimbus is a music uploading web application inspired by SoundCloud.
+
+## Technical Framework
+The
+application uses a PostgreSQL database, Ruby on Rails back-end, AWS cloud hosting,
 and a React.js frontend with a Redux architectural framework.
 
 ## Features & Implementation
-### User Authentication
-Do I need to talk about this?
-### Tracks
-All tracks are stored in a single table in the database. The table includes
-columns for the artist's id (a belongs_to association), song title, music file,
-image file, and dominant colors (more details [below](#Colors)). The files are
-sent to AWS using the Paperclip gem.
-#### Upload
-Users upload tracks through the UploadForm component. This form allows users to
-enter a title, select an mp3 file, and optionally select album art. The upload
-button is not clickable until the user inputs a title and mp3 file.
+### Content Management
+#### Rails
+User profile pictures, track album art, and track audio mp3 files are all stored using AWS S3. I used the Paperclip gem to interface between Rails and AWS.
 
-The mp3 and art selection components both rely on ```<input type="file">```
-tags. In order to improve usability and styling, these input elements are
-hidden and instead accessed via ```<label>``` tags.
+Tracks migration:
+```ruby
+add_attachment :tracks, :image
+add_attachment :tracks, :music
+```
+
+Model:
+```ruby
+has_attached_file :image, default_url: "assets/track.jpeg"
+has_attached_file :music
+validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+validates_attachment_content_type :music, content_type: [ 'audio/mpeg3', 'application/mp3', 'audio/mp3', 'audio/mpeg']
+```
+
+In the controller, ```:image``` and ```:music``` are handled like any other column.
+
+#### React/Redux
+
+Users upload files via ```<input type="file">``` elements in the front-end.
 
 
+```javascript
+changeMusic(e) {
+  var reader = new FileReader();
+  var file = e.currentTarget.files[0];
 
-#### Index
-#### Details
-#### Playback
-### Comments
-### User profiles
+  reader.onloadend = function() {
+    this.setState({ musicUrl: reader.result, musicFile: file, musicFileName: file.name});
+  }.bind(this);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    this.setState({ musicUrl: "", musicFile: null, musicFileName: "Select Song" });
+  }
+}
+```
+
+When submitted, the file data gets saved to a ```FormData``` instance and sent to the Rails server via an AJAX request.
+
+```javascript
+// upload_form.jsx
+handleSubmit(e) {
+  e.preventDefault();
+
+  let formData = new FormData();
+  [...]
+  formData.append("track[music]", this.state.musicFile)
+  this.props.createTrack(formData);
+}
+
+// track_api_util.js
+createTrack: (formData) => {
+  return $.ajax({
+    url: "api/tracks",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    dataType: 'json'
+  });
+}
+```
+
+
+### Track Playback
 ### Colors
+SoundCloud changes the background color of profile pages based on the color
+of the profile picture.
 
 ## Future Work
 ### Waveforms
 SoundCloud displays waveforms for the song, which would be a nice visual touch.
+### Playlists
+Currently, the app simply plays the next track listed on the main page. It would
+be nice if users could create playlists and play only the tracks there.
+### Likes
+Allow users to like tracks.
 
 
 <!-- [Heroku link][heroku]

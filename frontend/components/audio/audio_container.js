@@ -6,8 +6,8 @@ const mapStateToProps = (state, ownProps) => {
   let track = state.trackInfo.currentTrack;
   let trackIndex = -1;
   if (!!track) {
-    for (let i = 0; i < state.trackInfo.tracks.length; i++) {
-      if (state.trackInfo.tracks[i].id === track.id) {
+    for (let i = 0; i < state.trackInfo.allTracks.length; i++) {
+      if (state.trackInfo.allTracks[i].id === track.id) {
         trackIndex = i;
         break;
       }
@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     track: track,
     trackIndex: trackIndex,
-    tracks: state.trackInfo.tracks,
+    tracks: state.trackInfo.allTracks,
     paused: !state.trackInfo.currentTrackPlaying
   };
 };
