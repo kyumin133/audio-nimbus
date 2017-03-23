@@ -12,6 +12,7 @@ class Profile extends React.Component {
     this.saveUsername = this.saveUsername.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.cancelChanges = this.cancelChanges.bind(this);
+    this.select = this.select.bind(this);
     this.state = {
       username: "",
       imageUrl: "",
@@ -22,39 +23,57 @@ class Profile extends React.Component {
       editing: false,
       darkestColor: "",
       lightestColor: "",
-      hidden: true
+      hidden: true,
+      errors: []
     };
   }
 
+  select(e) {
+    e.currentTarget.select();
+  }
+
   cancelChanges() {
+    let errors = this.state.editing ? this.state.errors : []
     this.setState({
       username: this.state.savedUsername,
       imageUrl: this.state.savedImageUrl,
-      imageFile: this.state.savedImage
+      imageFile: this.state.savedImage,
+      editing: false,
+      errors: errors
     })
   }
 
   handleKeyPress(e) {
     if (e.key === "Enter") {
+      e.preventDefault();
       this.saveUsername(e);
     }
   }
 
   saveUsername(e) {
-    this.setState({ editing: false });
-    this.submitChanges();
+    this.submitChanges(e);
+    // this.setState({ editing: false });
   }
 
   changeUsername(e) {
-    this.setState({ username: e.currentTarget.value });
+    let errors = [];
+    if (e.currentTarget.value.length === 0) {
+      errors = ["Username can't be blank"]
+    }
+    this.setState({
+      username: e.currentTarget.value,
+      errors: errors
+    });
   }
 
   showEditUsername() {
     this.setState({ editing: true });
   }
 
-  submitChanges() {
-    if (this.state.username === "") {
+  submitChanges(e) {
+    e.preventDefault();
+    if ((this.state.username === "") || (this.state.errors.length > 0)) {
+      this.cancelChanges();
       return;
     }
     let formData = new FormData();
@@ -64,10 +83,21 @@ class Profile extends React.Component {
         this.setState({
           savedUsername: this.state.username,
           savedImageUrl: this.state.imageUrl,
-          savedImageFile: this.state.imageFile
+          savedImageFile: this.state.imageFile,
+          editing: false,
+          errors: []
         });
       }
-    );
+    ).fail((errors) => {
+      let errorArr = errors.responseJSON;
+      if (errorArr === undefined) {
+        errorArr = [];
+      }
+      this.setState({
+        editing: true,
+        errors: errors.responseJSON
+      })
+    });
   }
 
   changePicture(e) {
@@ -100,6 +130,9 @@ class Profile extends React.Component {
         username: newProps.user.username,
         imageUrl: newProps.user.imageUrl,
         imageFile: newProps.user.imageFile,
+        savedUsername: newProps.user.username,
+        savedImageUrl: newProps.user.imageUrl,
+        savedImageFile: newProps.user.imageFile,
         darkestColor: `rgb(${dominantColors[0].join(", ")})`,
         lightestColor: `rgb(${dominantColors[1].join(", ")})`,
         hidden: false
@@ -109,7 +142,6 @@ class Profile extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.params.userId !== this.props.params.userId) {
-      console.log("change!!");
       this.props.fetchUser(newProps.params.userId).then(() => {
         this.updateUser(this.props);
       });
@@ -129,6 +161,15 @@ class Profile extends React.Component {
       return null;
     }
 
+    let error = "";
+    let profileUsernameInput = "profile-username-input";
+    let editProfileUsernameWrapper = "edit-profile-username-wrapper";
+    if (this.state.errors.length > 0) {
+      error = <div className="profile-error">{this.state.errors[0]}</div>;
+      profileUsernameInput = "profile-username-input-error"
+      editProfileUsernameWrapper = "edit-profile-username-wrapper-error"
+    }
+
     let imgWrapper =  <div className="profile-img-wrapper">
                         <img className="profile-img" src={this.state.imageUrl}></img>
                       </div>;
@@ -141,9 +182,12 @@ class Profile extends React.Component {
       </div>;
 
       if (this.state.editing) {
-        usernameWrapper =  <div className="profile-username-wrapper">
-                          <input value={this.state.username} autoFocus onKeyPress={this.handleKeyPress} onBlur={this.saveUsername} className="profile-username-input" type="text" onChange={this.changeUsername} />
-                        </div>;
+        usernameWrapper =   <div className={editProfileUsernameWrapper}>
+                              <div className="profile-username-wrapper">
+                                <input value={this.state.username} autoFocus onFocus={this.select} onKeyPress={this.handleKeyPress} onBlur={this.saveUsername} className={profileUsernameInput} type="text" onChange={this.changeUsername} />
+                              </div>
+                              {error}
+                            </div>;
       } else {
         usernameWrapper =  <div className="profile-username-wrapper">
                           <span className="profile-username">{this.state.username}</span>
@@ -157,6 +201,7 @@ class Profile extends React.Component {
     let bannerBackground = {
       background: `linear-gradient(135deg, ${this.state.lightestColor} 0%, ${this.state.darkestColor} 100%)`
     };
+
 
     return  <div className="home-body">
               <div className="margin-div"></div>

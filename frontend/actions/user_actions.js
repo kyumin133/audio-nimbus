@@ -2,7 +2,7 @@ import { receiveCurrentUser } from "./session_actions";
 import UserAPIUtil from '../util/user_api_util';
 
 export const RECEIVE_USER = "RECEIVE_USER";
-export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 export const RECEIVE_PLAYING_USERNAME = "RECEIVE_PLAYING_USERNAME";
 
 export const receiveUser = (user) => ({
@@ -10,8 +10,8 @@ export const receiveUser = (user) => ({
   user
 });
 
-export const receiveErrors = (errors) => ({
-  type: RECEIVE_ERRORS,
+export const receiveUserErrors = (errors) => ({
+  type: RECEIVE_USER_ERRORS,
   errors
 });
 
@@ -24,7 +24,7 @@ export const fetchUser = (userId) => (dispatch) => {
   return UserAPIUtil.fetchUser(userId).then(response => {
     return dispatch(receiveUser(response));
   }).fail(errors => {
-    return dispatch(receiveErrors(JSON.parse(errors.responseText)));
+    return dispatch(receiveUserErrors(JSON.parse(errors.responseText)));
   });
 };
 
@@ -36,6 +36,6 @@ export const updateUser = (id, user) => (dispatch) => {
     }
     dispatch(receiveUser(response));
   }).fail(errors => {
-    return dispatch(receiveErrors(JSON.parse(errors.responseText)));
+    return dispatch(receiveUserErrors(errors.responseJSON));
   });
 }

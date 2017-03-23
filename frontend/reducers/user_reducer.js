@@ -1,4 +1,4 @@
-import { RECEIVE_USER, RECEIVE_ERRORS } from "../actions/user_actions";
+import { RECEIVE_USER, RECEIVE_USER_ERRORS } from "../actions/user_actions";
 import merge from 'lodash/merge';
 
 const initialState = {};
@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
       newState = action.user;
       newState.errors = [];
       return newState;
-    case RECEIVE_ERRORS:
+    case RECEIVE_USER_ERRORS:
       newState.errors = action.errors;
       return newState;
     default:

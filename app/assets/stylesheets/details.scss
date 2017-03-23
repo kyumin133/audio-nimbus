@@ -130,6 +130,7 @@
   line-height: 40px;
   margin: 0;
   padding-left: 2%;
+  width: 100%;
 }
 
 .details-title-label {
@@ -162,6 +163,22 @@
   font-size: 24px;
   width: 100%;
   border: none;
+  border-radius: 5px;
+  // background-color: honeydew;
+  box-sizing: border-box;
+  padding-left: 2%;
+
+  position: relative;
+  // left: -2%;
+  padding-right: 3%;
+}
+
+.details-title-input-error {
+  // margin: 0px 0% 0px 0%;
+  height: 40px;
+  font-size: 24px;
+  width: 100%;
+  border: 1px solid #f70;
   border-radius: 5px;
   // background-color: honeydew;
   box-sizing: border-box;

@@ -11,6 +11,7 @@ class CommentsIndexItem extends React.Component {
   constructor(props) {
     super(props);
 
+    this.select = this.select.bind(this);
     this.delete = this.delete.bind(this);
     this.editText = this.editText.bind(this);
     this.saveText = this.saveText.bind(this);
@@ -20,13 +21,21 @@ class CommentsIndexItem extends React.Component {
 
     this.state = {
       text: "",
-      editing: false
+      savedText: "",
+      editing: false,
+      error: ""
     }
+  }
+
+  select(e) {
+    e.currentTarget.select();
   }
 
   cancelEdits() {
     this.setState({
-      editing: false
+      editing: false,
+      text: this.state.savedText,
+      error: ""
     })
   }
 
@@ -38,12 +47,21 @@ class CommentsIndexItem extends React.Component {
   }
 
   handleTextChange(e) {
+    let error = ""
+    if (e.currentTarget.value.length === 0) {
+      error = "Comment can't be blank"
+    }
     this.setState({
-      text: e.currentTarget.value
+      text: e.currentTarget.value,
+      error: error
     })
   }
 
   saveText(e) {
+    if (this.state.text.length === 0) {
+      this.cancelEdits();
+      return;
+    }
     let formData = new FormData();
     let comment = this.props.comment;
     console.log(comment);
@@ -53,7 +71,9 @@ class CommentsIndexItem extends React.Component {
     formData.append("comment[commenter_id]", this.props.userId);
     this.props.updateComment(comment.id, formData).then(() => {
       this.setState({
-        editing: false
+        editing: false,
+        savedText: this.state.text,
+        error: ""
       });
     });
   }
@@ -83,7 +103,11 @@ class CommentsIndexItem extends React.Component {
       commentOverlay = <div className="comment-overlay">{deleteIcon}</div>;
 
       if (this.state.editing) {
-        commentText = <input className="comment-input" type="text" autoFocus value={this.state.text} onKeyPress={this.handleKeyPress} onChange={this.handleTextChange} onBlur={this.cancelEdits}></input>;
+        if (this.state.error.length > 0) {
+          commentText = <input className="comment-input-error" type="text" autoFocus onFocus={this.select} value={this.state.text} onKeyPress={this.handleKeyPress} onChange={this.handleTextChange} onBlur={this.saveText}></input>;
+        } else {
+          commentText = <input className="comment-input" type="text" autoFocus onFocus={this.select} value={this.state.text} onKeyPress={this.handleKeyPress} onChange={this.handleTextChange} onBlur={this.saveText}></input>;
+        }
       } else {
         commentText = <div className="comment-text-editable-wrapper">
                         <span className="comment-text-editable">{comment.text}</span>

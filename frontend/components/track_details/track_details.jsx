@@ -6,6 +6,7 @@ import { Link } from "react-router";
 class TrackDetails extends React.Component {
   constructor(props) {
     super(props);
+    this.select = this.select.bind(this);
     this.playPauseTrack = this.playPauseTrack.bind(this);
     this.showEditTitle = this.showEditTitle.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
@@ -24,15 +25,22 @@ class TrackDetails extends React.Component {
       savedImageUrl: "",
       savedImageFile: null,
       darkestColor: "",
-      lightestColor: ""
+      lightestColor: "",
+      error: ""
     }
+  }
+
+  select(e) {
+    e.currentTarget.select();
   }
 
   cancelChanges() {
     this.setState({
       title: this.state.savedTitle,
+      editing: false,
       imageUrl: this.state.savedImageUrl,
-      imageFile: this.state.savedImage
+      imageFile: this.state.savedImage,
+      error: ""
     })
   }
 
@@ -47,7 +55,8 @@ class TrackDetails extends React.Component {
         this.setState({
           savedTitle: this.state.title,
           savedImageUrl: this.state.imageUrl,
-          savedImageFile: this.state.imageFile
+          savedImageFile: this.state.imageFile,
+          error: ""
         });
       }
     );
@@ -60,6 +69,10 @@ class TrackDetails extends React.Component {
   }
 
   saveTitle(e) {
+    if (e.currentTarget.value.length === 0) {
+      this.cancelChanges();
+      return;
+    }
     this.setState({ editing: false });
     this.submitChanges();
   }
@@ -69,7 +82,14 @@ class TrackDetails extends React.Component {
   }
 
   changeTitle(e) {
-    this.setState({ title: e.currentTarget.value });
+    let error = ""
+    if (e.currentTarget.value.length === 0) {
+      error = "Title can't be blank"
+    }
+    this.setState({
+      title: e.currentTarget.value,
+      error: error
+    });
   }
 
   playPauseTrack() {
@@ -191,8 +211,9 @@ class TrackDetails extends React.Component {
       let html = `${track.title}`;
 
       if (this.state.editing) {
+        let inputClass = (this.state.error.length > 0) ? "details-title-input-error" : "details-title-input";
         titleWrapper =  <div className="details-title-wrapper">
-                          <input value={this.state.title} autoFocus onKeyPress={this.handleKeyPress} onBlur={this.saveTitle} className="details-title-input" type="text" onChange={this.changeTitle} />
+                          <input value={this.state.title} autoFocus onFocus={this.select} onKeyPress={this.handleKeyPress} onBlur={this.saveTitle} className={inputClass} type="text" onChange={this.changeTitle} />
                         </div>;
       } else {
         titleWrapper =  <div className="details-title-wrapper">
