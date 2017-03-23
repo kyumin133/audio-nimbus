@@ -117,7 +117,7 @@ render() {
 
 #### Custom Controls
 HTML handles audio playback through the ```<audio>``` tag. The ```react-audio-player``` package provides a light wrapper around the tag so that the player can be manipulated in React. However, the appearance and functionality of the ```<audio>``` tag are not easily customizable and depend highly on the browser.
-![html audio comparison](docs/screenshots/html audio.png)
+![html audio comparison](docs/screenshots/html_audio.png)
 
 To resolve this issue, I created a custom audio component. This custom component interacts with a hidden ```<audio>``` tag's methods and properties.
 
