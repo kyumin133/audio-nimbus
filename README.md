@@ -13,8 +13,17 @@ Do I need to talk about this?
 All tracks are stored in a single table in the database. The table includes
 columns for the artist's id (a belongs_to association), song title, music file,
 image file, and dominant colors (more details [below](#Colors)). The files are
-sent to AWS using Paperclip.
+sent to AWS using the Paperclip gem.
 #### Upload
+Users upload tracks through the UploadForm component. This form allows users to
+enter a title, select an mp3 file, and optionally select album art. The upload
+button is not clickable until the user inputs a title and mp3 file.
+
+The mp3 and art selection components both rely on ```html<input type="file">```
+elements. In order to improve usability and styling, these input elements are
+hidden and instead accessed via ```html<label>``` tags.
+
+
 
 #### Index
 #### Details
@@ -22,6 +31,8 @@ sent to AWS using Paperclip.
 ### Comments
 ### User profiles
 ### Colors
+
+## Future Work
 
 <!-- [Heroku link][heroku]
 
