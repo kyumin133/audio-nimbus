@@ -12,27 +12,27 @@ and a React.js frontend with a Redux architectural framework.
 
 ### Content Management
 #### Rails
-User profile pictures, track album art, and track audio mp3 files are all stored using AWS S3. This app uses the Paperclip gem to interface between Rails and AWS.
+User profile pictures, track album art, and track audio mp3 files are all stored using AWS S3. This app uses the Paperclip gem to interface between Rails and AWS. This gem
 
-Tracks migration:
+The migration adds ```:image``` and ```:music``` as attachments to the Tracks table. This allows files to be saved like regular columns in the table.
 ```ruby
 add_attachment :tracks, :image
 add_attachment :tracks, :music
 ```
 
-Model:
+The model validates that there is an attached file, and also validates the type of the attachment so that users can only upload images to the image field and music to the music field.
 ```ruby
 has_attached_file :image, default_url: "assets/track.jpeg"
 has_attached_file :music
 validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-validates_attachment_content_type :music, content_type: [ 'audio/mpeg3', 'application/mp3', 'audio/mp3', 'audio/mpeg']
+validates_attachment_content_type :music, content_type: [ /\Aaudio\/.*\Z/, 'application/mp3']
 ```
 
 In the controller, ```:image``` and ```:music``` are handled like any other column.
 
 #### React/Redux
 
-Users upload files via ```<input type="file">``` elements in the front-end. These get saved in the component state using ```FileReader```.
+Users upload files via ```<input type="file">``` elements in the front-end. When the uploaded file changes, this triggers an event that saves the new file in the component state using ```FileReader```.
 
 
 ```javascript
@@ -52,7 +52,7 @@ changeMusic(e) {
 }
 ```
 
-When submitted, the file data gets saved to a ```FormData``` instance and sent to the Rails server via an AJAX request.
+When the user submits the changes, the file data (saved in the component state in the previous step) gets saved to a ```FormData``` instance. This fires an action previously defined in the component's container. This container action dispatches an API util function. This API util function sends an AJAX query to the Rails server, thus saving the file.
 
 ```javascript
 // upload_form.jsx
@@ -119,13 +119,29 @@ render() {
 HTML handles audio playback through the ```<audio>``` tag. The ```react-audio-player``` package provides a light wrapper around the tag so that the player can be manipulated in React. However, the appearance and functionality of the ```<audio>``` tag are not easily customizable and depend highly on the browser.
 ![html audio comparison](docs/screenshots/html_audio.png)
 
-To resolve this issue, I created a custom audio component. This custom component interacts with a hidden ```<audio>``` tag's methods and properties.
+To resolve this issue, I created a custom audio component. This custom component interacts with a hidden ```<audio>``` tag's methods and properties. This custom component appears consistent across browsers. All visible elements within this component are custom built.
 
+Hidden audio tag:
 ```jsx
 <ReactAudioPlayer ref={c => this.rap = c } onCanPlay={this.start} className="hidden" src={track.musicUrl}/>
 ```
 
-This custom component appears consistent across browsers and has custom features (e.g. next/previous track functionality).
+Calling ```this.rap``` allows the React component to directly access the ```<audio>``` tag and its properties/methods
+
+- Previous and Next buttons
+* The state contains a list of tracks to be played.
+* The current track's position on that list is stored to ```this.props```.
+* The Previous and Next buttons use this to load the correct track.
+- Play/Pause button
+* Audio properties/methods used: ```.play()```, ```.pause()```
+* This has to stay in sync with the other play/pause buttons on the site (for example, on the home page).
+* To accomplish this, all play/pause buttons on the website update the store to indicate whether or not the current track is playing.
+- Progress bar
+* Audio properties/methods used: ```currentTime```, ```duration```
+* This uses ```rc-progress``` to actually render the progress bar, updating it regularly using ```setInterval()```.
+- Volume slider
+* Audio property used: ```volume```
+* This uses ```rc-slider``` to render the volume bar. The slider has an ```onChange``` event that updates the volume.
 
 Screenshot:
 ![audio screenshot](docs/screenshots/audio.png)
