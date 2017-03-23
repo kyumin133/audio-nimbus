@@ -94,11 +94,13 @@ const Root = ({ store }) => {
     <Router history={ hashHistory }>
       <Route path="/" component={ App } >
         <IndexRoute component={ Home } loggedIn={ !!window.currentUser }  />
-        [child routes]
+        <Route path="home" component={ HomeAfterLogin } onEnter={ _ensureLoggedIn }/>
+        [...]
       </Route>
     </Router>
   </Provider>
 };
+
 // app.jsx
 render() {
   [...]
@@ -112,6 +114,19 @@ render() {
   </div>
 }
 ```
+
+#### Custom Controls
+HTML handles audio playback through the ```<audio>``` tag. The ```react-audio-player``` package provides a light wrapper around the tag so that the player can be manipulated in React. However, the appearance and functionality of the ```<audio>``` tag are not easily customizable.
+
+To resolve this issue, I created a custom audio component. This custom component interacts with a hidden ```<audio>``` tag's methods and properties.
+
+```jsx
+<ReactAudioPlayer ref={c => this.rap = c } onCanPlay={this.start} className="hidden" id="audio" src={track.musicUrl} controls={false} preload="auto" autoplay={true}/>
+```
+
+This custom component appears consistent across browsers and has custom features (e.g. next/previous track functionality).
+
+Screenshot:
 ![audio screenshot](docs/screenshots/audio.png)
 
 ### Colors
