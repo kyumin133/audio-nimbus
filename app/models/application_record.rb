@@ -4,6 +4,7 @@ class ApplicationRecord < ActiveRecord::Base
   def get_dominant_colors!
     url = self.image.url
     url = "app/assets/images/dog.png" if url == "assets/dog.png"
+    url = "app/assets/images/track.jpeg" if url == "assets/track.jpeg"
     colors = Miro::DominantColors.new(url).to_rgb
 
     min_brightness = 0;

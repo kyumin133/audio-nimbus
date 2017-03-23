@@ -40,7 +40,7 @@ class CommentForm extends React.Component {
                   <div className="comment-img-wrapper">
                     <img src={this.props.imageUrl} className="comment-img"></img>
                   </div>
-                  <div className="comment-content">
+                  <div className="comment-input-wrapper">
                     <input autoFocus type="text" value={this.state.commentText} className="comment-input" onChange={this.handleChange} onKeyPress={this.handleKeyPress} placeholder="Write a comment"></input>
                   </div>
                 </div>

@@ -21,7 +21,7 @@ enter a title, select an mp3 file, and optionally select album art. The upload
 button is not clickable until the user inputs a title and mp3 file.
 
 The mp3 and art selection components both rely on ```<input type="file">```
-elements. In order to improve usability and styling, these input elements are
+tags. In order to improve usability and styling, these input elements are
 hidden and instead accessed via ```<label>``` tags.
 
 
@@ -34,6 +34,9 @@ hidden and instead accessed via ```<label>``` tags.
 ### Colors
 
 ## Future Work
+### Waveforms
+SoundCloud displays waveforms for the song, which would be a nice visual touch.
+
 
 <!-- [Heroku link][heroku]
 

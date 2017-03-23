@@ -26,6 +26,9 @@ class Api::UsersController < ApplicationController
 
   private
   def user_params
+    if params[:user][:image] == "assets/dog.png"
+      params[:user][:image] = File.open("app/assets/images/dog.png")
+    end
     params.require(:user).permit(:username, :email, :password, :image)
   end
 end

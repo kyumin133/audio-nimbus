@@ -202,14 +202,14 @@ class Profile extends React.Component {
     }
 
     let imgWrapper =  <div className="profile-img-wrapper">
-                        <img className="profile-img" src={this.state.imageUrl}></img>
+                        <div className="profile-img" style={{ backgroundImage: `url(${this.state.imageUrl})`}} ></div>
                       </div>;
     let usernameWrapper = <div className="profile-username-wrapper"><span className="profile-username">{this.state.username}</span></div>;
     if (this.props.currentUserId === user.id) {
       imgWrapper = <div className="profile-img-wrapper">
+        <div className="profile-img" style={{ backgroundImage: `url(${this.state.imageUrl})`}} ></div>
         <input id="profile-img-input" className="hidden" type="file" accept="image/*" onChange={this.changePicture} />
         <label htmlFor="profile-img-input" className="profile-img-label"><i className="fa fa-camera" aria-hidden="true"></i></label>
-        <img className="profile-img" src={this.state.imageUrl}></img>
       </div>;
 
       if (this.state.saving) {

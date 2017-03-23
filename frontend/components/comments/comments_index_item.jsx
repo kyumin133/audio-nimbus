@@ -123,7 +123,7 @@ class CommentsIndexItem extends React.Component {
     return  <li className="comment-index-item">
               <div className="comment-left">
                 <div className="comment-img-wrapper">
-                  <Link to={`profile/${comment.commenter.id}`} ><img className="comment-img" src={comment.commenter.imageUrl}></img></Link>
+                  <Link className="img-link" to={`profile/${comment.commenter.id}`} ><div className="comment-img" style={{ backgroundImage: `url(${comment.commenter.imageUrl})`}}></div></Link>
                 </div>
                 <div className="comment-content">
                   <span className="comment-username"><Link to={`profile/${comment.commenter.id}`} >{comment.commenter.username}</Link></span>
