@@ -10,7 +10,7 @@ and a React.js frontend with a Redux architectural framework.
 Do I need to talk about this?
 ### Tracks
 All tracks are stored in a single table in the database.
-[Testing](### Colors)
+[Testing](#Colors)
 #### Upload
 #### Index
 #### Details
