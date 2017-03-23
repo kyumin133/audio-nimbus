@@ -1,5 +1,6 @@
 import React from "react";
-import javascript_time_ago from 'javascript-time-ago'
+import javascript_time_ago from 'javascript-time-ago';
+import { Link } from "react-router";
 
 javascript_time_ago.locale(require('javascript-time-ago/locales/en'))
 require('javascript-time-ago/intl-messageformat-global')
@@ -98,10 +99,10 @@ class CommentsIndexItem extends React.Component {
     return  <li className="comment-index-item">
               <div className="comment-left">
                 <div className="comment-img-wrapper">
-                  <img className="comment-img" src={comment.commenter.imageUrl}></img>
+                  <Link to={`profile/${comment.commenter.id}`} ><img className="comment-img" src={comment.commenter.imageUrl}></img></Link>
                 </div>
                 <div className="comment-content">
-                  <span className="comment-username">{comment.commenter.username}</span>
+                  <span className="comment-username"><Link to={`profile/${comment.commenter.id}`} >{comment.commenter.username}</Link></span>
                   {commentText}
                 </div>
               </div>

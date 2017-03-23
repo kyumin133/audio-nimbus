@@ -7,64 +7,57 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+counter = 0
 10.times do
   User.create({
     username: Faker::Internet.user_name,
     password: "password",
-    email: Faker::Internet.email
-    image: open(Faker::LoremPixel.image("480x480", false, 'people'))
+    email: Faker::Internet.email,
+    image: File.open("app/assets/avatars/#{counter}.jpg")
   })
+  counter += 1
 end
 
 User.create({
   username: "demo",
   password: "password",
-  email: "demo@demo.com"
+  email: "demo@demo.com",
+  image: File.open("app/assets/avatars/10.jpg")
   })
 
-# Dir.foreach("app/assets/music/artwork") do |el|
-#   next if el !~ /.*\.jpe?g/
-#
-#   title = el.sub(/\.jpe?g/, "")
-#   image = File.open("app/assets/music/artwork/#{el}")
-#   music = File.open("app/assets/music/tracks/#{title}.mp3")
-#
-#   Track.create({
-#     title: title,
-#     image: image,
-#     music: music,
-#     artist_id: User.all.sample.id
-#   })
-# end
+Dir.foreach("app/assets/music/artwork") do |el|
+  next if el !~ /.*\.png/
 
-# tracks = ["cards", "citylights", "bach", "sunset"]
-# track_names = ["The Man in a House of Cards", "City Lights", "Concerto for Two Violins in d minor (Guitar)", "What a Beautiful Sunset!"]
-# artist_ids = [User.first.id, User.last.id]
+  title = el.sub(/\.png/, "")
+  image = File.open("app/assets/music/artwork/#{el}")
+  music = File.open("app/assets/music/tracks/#{title}.mp3")
 
-# tracks.each_with_index do |track, i|
-#   image = File.open("app/assets/music/artwork/#{track}.jpg")
-#   music = File.open("app/assets/music/tracks/#{track}.mp3")
-#   Track.create({
-#       title: track_names[i],
-#       image: image,
-#       music: music,
-#       artist_id: artist_ids[i % 2]
-#     })
-# end
+  Track.create({
+    title: title,
+    image: image,
+    music: music,
+    artist_id: User.all.sample.id
+  })
+end
 
-# 100.times do
-#   shows = [Faker::Friends, Faker::HarryPotter, Faker::StarWars, Faker::GameOfThrones]
-#   quote = shows.sample.quote
-#   Comment.create({
-#     commentable_type: :Track,
-#     commentable_id: Track.all.sample.id,
-#     text: Faker::TwinPeaks.quote,
-#     commenter_id: User.all.sample.id
-#     })
-# end
+100.times do
+  shows = [Faker::Friends, Faker::HarryPotter, Faker::StarWars, Faker::GameOfThrones]
+  quote = shows.sample.quote
+  Comment.create({
+    commentable_type: :Track,
+    commentable_id: Track.all.sample.id,
+    text: Faker::TwinPeaks.quote,
+    commenter_id: User.all.sample.id
+    })
+end
 #
 #
 # User.all.each do |user|
-#   user.image = open(Faker::LoremPixel.image("480x480", false, 'people'))
+#   user.get_dominant_colors
 #   user.save
+# end
+#
+# Track.all.each do |track|
+#   track.get_dominant_colors
+#   track.save
 # end

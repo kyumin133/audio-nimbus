@@ -7,7 +7,9 @@ class HomeAfterLogin extends React.Component {
     return  <div className="home-body">
               <div className="margin-div"></div>
               <div className="main-div">
-                <TracksIndexContainer />
+                <div className="home-track-index">
+                  <TracksIndexContainer userId={-1} showArtist={true}/>
+                </div>
               </div>
               <div className="margin-div"></div>
             </div>

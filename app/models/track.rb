@@ -13,4 +13,6 @@ class Track < ApplicationRecord
   has_attached_file :music
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates_attachment_content_type :music, content_type: [ 'audio/mpeg3', 'application/mp3', 'audio/mp3', 'audio/mpeg']
+
+  after_save :get_dominant_colors!
 end

@@ -52,8 +52,8 @@ export const receiveUploadStatus = (uploading) => ({
   uploading
 });
 
-export const fetchTracks = (user) => (dispatch) => {
-  return TrackAPIUtil.fetchTracks(user).then(response => {
+export const fetchTracks = (userId) => (dispatch) => {
+  return TrackAPIUtil.fetchTracks(userId).then(response => {
     return dispatch(receiveTracks(response));
   }).fail(errors => {
     return dispatch(receiveErrors(JSON.parse(errors.responseText)));

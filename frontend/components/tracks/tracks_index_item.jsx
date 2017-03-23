@@ -68,16 +68,22 @@ class TracksIndexItem extends React.Component {
       playPauseIcon = <i className="fa fa-pause index-pause" aria-hidden="true"></i>;
     }
 
+    let info = <div className="track-info">
+      <Link to={`/profile/${track.artistId}`} className="track-details-link"><span className="track-info-artist">{track.artistName}</span></Link>
+      <Link to={`/track/${track.id}`} className="track-details-link"><span className="track-info-title">{track.title}</span></Link>
+    </div>
+    if (!this.props.showArtist) {
+      info = <div className="track-info">
+        <Link to={`/track/${track.id}`} className="track-details-link"><span className="track-info-title">{track.title}</span></Link>
+      </div>
+    }
 
     return  <li className={liClass}>
               <Link to={`/track/${track.id}`} className="track-details-link"><img className="index-img" src={track.imageUrl}></img></Link>
               <div className={divName} onClick={this.playPauseTrack}>
                 {playPauseIcon}
               </div>
-              <div className="track-info">
-                <span className="track-info-artist">{track.artistName}</span>
-                <Link to={`/track/${track.id}`} className="track-details-link"><span className="track-info-title">{track.title}</span></Link>
-              </div>
+              {info}
             </li>
   }
 }

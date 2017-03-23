@@ -1,6 +1,11 @@
 class Api::TracksController < ApplicationController
   def index
-    @tracks = Track.all.order("created_at DESC").limit(10)
+    if params[:artist_id] == "null" || params[:artist_id].to_i < 1
+      @tracks = Track.all.order("created_at DESC").limit(6)
+    else
+      @tracks = Track.where(artist_id: params[:artist_id]).order("created_at DESC").limit(6)
+    end
+
     render :index
   end
 

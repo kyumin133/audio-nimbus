@@ -1,6 +1,7 @@
 import React from "react";
 import CommentsIndexContainer from "../comments/comments_index_container";
 import CommentFormContainer from "../comments/comment_form_container";
+import { Link } from "react-router";
 
 class TrackDetails extends React.Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class TrackDetails extends React.Component {
       imageFile: null,
       savedTitle: "",
       savedImageUrl: "",
-      savedImageFile: null
+      savedImageFile: null,
+      darkestColor: "",
+      lightestColor: ""
     }
   }
 
@@ -93,6 +96,7 @@ class TrackDetails extends React.Component {
   }
 
   componentDidMount() {
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -106,13 +110,41 @@ class TrackDetails extends React.Component {
       //   progressColor: 'purple'
       // });
       // this.wavesurfer.load(newProps.track.musicUrl);
+
+      // let darkestColor = [255, 255, 255];
+      // let darkestColorSum = 765;
+      // let lightestColor = [0, 0, 0];
+      // let lightestColorSum = 0;
+      // let dominantColors = newProps.track.dominantColors;
+      // for (let i = 0; i < dominantColors.length; i++) {
+      //   let sum = dominantColors[i].reduce((a, b) => parseInt(a) + parseInt(b), 0);;
+      //   if ((sum < 60) || (sum > 705)) {
+      //     continue;
+      //   }
+      //
+      //   if (sum < darkestColorSum) {
+      //     darkestColorSum = sum;
+      //     darkestColor = dominantColors[i];
+      //   }
+      //   if (sum > lightestColorSum) {
+      //     lightestColorSum = sum;
+      //     lightestColor = dominantColors[i];
+      //   }
+      // }
+      //
+      // if (Math.abs(darkestColorSum - lightestColorSum) < 50) {
+      //   darkestColor = [71, 66, 66];
+      //   lightestColor = [180, 132, 110];
+      // }
+
       this.setState({ title: newProps.track.title,
                       savedTitle: newProps.track.title,
                       imageUrl: newProps.track.imageUrl,
                       savedImageUrl: newProps.track.imageUrl,
                       imageFile: newProps.track.imageFile,
-                      savedImageFile: newProps.track.imageFile
-
+                      savedImageFile: newProps.track.imageFile,
+                      darkestColor: `rgb(${newProps.track.dominantColors[0].join(", ")})`,
+                      lightestColor: `rgb(${newProps.track.dominantColors[1].join(", ")})`
                     });
 
       if (!!newProps.currentTrack) {
@@ -177,23 +209,31 @@ class TrackDetails extends React.Component {
       playPauseIcon = <i className="fa fa-pause details-pause" aria-hidden="true"></i>;
     }
 
+    // console.log(this.state);
+    let bannerBackground = {
+      background: `linear-gradient(135deg, ${this.state.darkestColor} 0%, ${this.state.lightestColor} 100%)`
+    };
+    // console.log(bannerBackground);
+
     return  <div className="home-body">
               <div className="margin-div"></div>
               <div className="track-details-div">
-                <div className="track-details-banner">
+                <div className="track-details-banner" style={bannerBackground}>
                   <div className="details-left">
                     <div className="details-play-pause" onClick={this.playPauseTrack}>
                       {playPauseIcon}
                     </div>
                     <div className="details-text">
-                      <span className="details-artist-name">{track.artistName}</span>
+                      <span className="details-artist-name"><Link className="track-details-link" to={`/profile/${track.artistId}`}>{track.artistName}</Link></span>
                       {titleWrapper}
                     </div>
                   </div>
                   {imgWrapper}
                 </div>
-                <CommentFormContainer commentType="Track" commentableId={track.id}/>
-                <CommentsIndexContainer commentType="Track" commentableId={track.id} userId={this.props.userId}/>
+                <div className="comments-div" >
+                  <CommentFormContainer commentType="Track" commentableId={track.id}/>
+                  <CommentsIndexContainer commentType="Track" commentableId={track.id} userId={this.props.userId}/>
+                </div>
               </div>
               <div className="margin-div"></div>
             </div>

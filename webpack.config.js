@@ -23,6 +23,10 @@ module.exports = {
       }
     ]
   },
+  node: {
+    fs: "empty",
+    child_process: "empty"
+  },
   plugins: [
     new WebpackBuildNotifierPlugin({
       title: "AudioNimbus Webpack Build",

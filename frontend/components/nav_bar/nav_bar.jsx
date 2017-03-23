@@ -50,7 +50,7 @@ class NavBar extends React.Component {
       return  <nav>
                 <ul>
                   <Link to={"/upload"}><li className="demo">Upload</li></Link>
-                  <Link to={"/edit_profile"}><li>Profile</li></Link>
+                  <Link to={`/profile/${currentUser.id}`}><li>Profile</li></Link>
                   <li onClick={this.logout}>Sign Out</li>
                 </ul>
               </nav>;

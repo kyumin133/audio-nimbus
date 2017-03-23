@@ -1,9 +1,9 @@
 const TrackAPIUtil = {
-  fetchTracks: (user = {}) => {
+  fetchTracks: (userId = -1) => {
     return $.ajax({
       url: "api/tracks",
       type: "GET",
-      data: { user }
+      data: { artist_id: userId }
     });
   },
 

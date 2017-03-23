@@ -148,6 +148,10 @@ class Audio extends React.Component {
       (this.rap.audioEl.paused) ? this.rap.audioEl.play() : this.rap.audioEl.pause();
       this.setState({paused: !this.state.paused});
     }
+
+    if (newProps.artistName !== this.props.artistName) {
+      this.forceUpdate();
+    }
   }
 
   render() {
@@ -196,8 +200,8 @@ class Audio extends React.Component {
               <div className="audio-details-div">
                 <Link className="track-details-link" to={`/track/${track.id}`}><img src={track.imageUrl} className="audio-img"></img></Link>
                 <div className="audio-text-details">
-                  <span className="track-info-artist">{track.artistName}</span>
-                  <span className="track-info-title"><Link className="track-details-link" to={`/track/${track.id}`}>{track.title}</Link></span>
+                  <Link className="track-details-link" to={`/profile/${track.artistId}`}><span className="track-info-artist">{track.artistName}</span></Link>
+                  <Link className="track-details-link" to={`/track/${track.id}`}><span className="track-info-title">{track.title}</span></Link>
                 </div>
               </div>
             </div>

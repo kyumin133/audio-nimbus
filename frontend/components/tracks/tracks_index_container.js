@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchTracks: () => dispatch(fetchTracks()),
+    fetchTracks: (userId) => dispatch(fetchTracks(userId)),
     playPauseTrack: (track) => dispatch(playPauseTrack(track))
   };
 };

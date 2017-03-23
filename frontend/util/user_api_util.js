@@ -1,6 +1,13 @@
 import { receiveCurrentUser } from "../actions/session_actions";
 
 const UserAPIUtil = {
+  fetchUser: (userId) => {
+    return $.ajax({
+      url: `api/users/${userId}`,
+      type: "GET"
+    })
+  },
+
   updateUser: (userId, formData) => {
     return $.ajax({
       url: `/api/users/${userId}`,
