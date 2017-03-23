@@ -65,8 +65,21 @@ handleSubmit(e) {
   this.props.createTrack(formData);
 }
 
-// not shown: upload_form_container.js
-// not shown: track_actions.js
+// upload_form_container.js
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    createTrack: (track) => {
+      dispatch(createTrack(track));
+    }
+  };
+};
+
+// track_actions.js
+export const createTrack = (track) => (dispatch) => {
+  return TrackAPIUtil.createTrack(track).then(response => {
+    dispatch(receiveTrack(response));
+  });
+}
 
 // track_api_util.js
 createTrack: (formData) => {
