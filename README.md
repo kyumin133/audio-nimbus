@@ -1,6 +1,6 @@
 # AudioNimbus
 [Live link][heroku]
-[heroku]: https://audionimb.us/
+[heroku]: http://audionimb.us/
 
 AudioNimbus is a music uploading web application inspired by SoundCloud. The
 application uses a PostgreSQL database, Ruby on Rails backend, AWS cloud hosting,
@@ -19,9 +19,9 @@ Users upload tracks through the UploadForm component. This form allows users to
 enter a title, select an mp3 file, and optionally select album art. The upload
 button is not clickable until the user inputs a title and mp3 file.
 
-The mp3 and art selection components both rely on ```html<input type="file">```
+The mp3 and art selection components both rely on ```<input type="file">```
 elements. In order to improve usability and styling, these input elements are
-hidden and instead accessed via ```html<label>``` tags.
+hidden and instead accessed via ```<label>``` tags.
 
 
 
