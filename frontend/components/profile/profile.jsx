@@ -21,11 +21,14 @@ class Profile extends React.Component {
       savedImageUrl: "",
       savedImageFile: null,
       editing: false,
+      saving: false,
       darkestColor: "",
       lightestColor: "",
       hidden: true,
       errors: []
     };
+
+    // this.saving = false;
   }
 
   select(e) {
@@ -37,20 +40,31 @@ class Profile extends React.Component {
     this.setState({
       username: this.state.savedUsername,
       imageUrl: this.state.savedImageUrl,
-      imageFile: this.state.savedImage,
+      imageFile: this.state.savedImageFile,
       editing: false,
+      saving: false,
       errors: errors
     })
   }
 
   handleKeyPress(e) {
     if (e.key === "Enter") {
-      e.preventDefault();
+      // e.preventDefault();
       this.saveUsername(e);
     }
   }
 
   saveUsername(e) {
+    // this.saving = true;
+    // this.forceUpdate(() => {
+    //   console.log(this.saving);
+    //   this.submitChanges(e);
+    // });
+
+    this.setState({
+      saving: true
+    });
+
     this.submitChanges(e);
     // this.setState({ editing: false });
   }
@@ -71,11 +85,16 @@ class Profile extends React.Component {
   }
 
   submitChanges(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if ((this.state.username === "") || (this.state.errors.length > 0)) {
       this.cancelChanges();
       return;
     }
+    if ((this.state.imageUrl === this.state.savedImageUrl) && (this.state.username === this.state.savedUsername)) {
+      this.cancelChanges();
+      return;
+    }
+
     let formData = new FormData();
     formData.append("user[username]", this.state.username);
     formData.append("user[image]", this.state.imageFile)
@@ -85,6 +104,7 @@ class Profile extends React.Component {
           savedImageUrl: this.state.imageUrl,
           savedImageFile: this.state.imageFile,
           editing: false,
+          saving: false,
           errors: []
         });
       }
@@ -93,8 +113,10 @@ class Profile extends React.Component {
       if (errorArr === undefined) {
         errorArr = [];
       }
+      // this.saving = false;
       this.setState({
         editing: true,
+        saving: false,
         errors: errors.responseJSON
       })
     });
@@ -105,7 +127,7 @@ class Profile extends React.Component {
     var file = e.currentTarget.files[0];
     reader.onloadend = function() {
       this.setState({ imageUrl: reader.result, imageFile: file});
-      this.submitChanges();
+      this.submitChanges(e);
     }.bind(this);
 
     if (file) {
@@ -117,6 +139,15 @@ class Profile extends React.Component {
 
   componentWillMount() {
     this.props.fetchUser(this.props.params.userId);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if ((!!newProps.user.imageUrl) && (newProps.user.imageUrl !== this.state.imageUrl)) {
+      this.setState({
+        imageUrl: newProps.user.imageUrl,
+        imageFile: newProps.user.imageFile
+      });
+    }
   }
 
   updateUser(newProps) {
@@ -181,7 +212,14 @@ class Profile extends React.Component {
         <img className="profile-img" src={this.state.imageUrl}></img>
       </div>;
 
-      if (this.state.editing) {
+      if (this.state.saving) {
+        // console.log("saving!");
+        usernameWrapper =   <div className="profile-username-wrapper">
+                              <span className="profile-username-saving">
+                                <span className="spinner"></span>
+                              </span>
+                            </div>;
+      } else if (this.state.editing) {
         usernameWrapper =   <div className={editProfileUsernameWrapper}>
                               <div className="profile-username-wrapper">
                                 <input value={this.state.username} autoFocus onFocus={this.select} onKeyPress={this.handleKeyPress} onBlur={this.saveUsername} className={profileUsernameInput} type="text" onChange={this.changeUsername} />
