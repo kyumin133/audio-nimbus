@@ -139,7 +139,10 @@ Hidden audio tag:
 <ReactAudioPlayer ref={c => this.rap = c } onCanPlay={this.start} className="hidden" src={track.musicUrl}/>
 ```
 
-Calling ```this.rap``` allows the React component to directly access the ```<audio>``` tag and its properties/methods
+Calling ```this.rap``` allows the React component to directly access the ```<audio>``` tag and its properties/methods.
+
+Screenshot:
+![audio screenshot](docs/screenshots/audio.png)
 
 - Previous and Next buttons
   * The state contains a list of tracks to be played.
@@ -155,9 +158,6 @@ Calling ```this.rap``` allows the React component to directly access the ```<aud
 - Volume slider
   * Audio property used: ```volume```
   * This uses ```rc-slider``` to render the volume bar. The slider has an ```onChange``` event that updates the volume.
-
-Screenshot:
-![audio screenshot](docs/screenshots/audio.png)
 
 ### Colors
 SoundCloud changes the background color of profile pages based on the color of the profile picture. AudioNimbus mimics this functionality using the Miro gem.
