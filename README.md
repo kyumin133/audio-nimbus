@@ -121,7 +121,7 @@ HTML handles audio playback through the ```<audio>``` tag. The ```react-audio-pl
 To resolve this issue, I created a custom audio component. This custom component interacts with a hidden ```<audio>``` tag's methods and properties.
 
 ```jsx
-<ReactAudioPlayer ref={c => this.rap = c } onCanPlay={this.start} className="hidden" id="audio" src={track.musicUrl} controls={false} preload="auto" autoplay={true}/>
+<ReactAudioPlayer ref={c => this.rap = c } onCanPlay={this.start} className="hidden" src={track.musicUrl}/>
 ```
 
 This custom component appears consistent across browsers and has custom features (e.g. next/previous track functionality).
@@ -130,8 +130,7 @@ Screenshot:
 ![audio screenshot](docs/screenshots/audio.png)
 
 ### Colors
-SoundCloud changes the background color of profile pages based on the color
-of the profile picture.
+SoundCloud changes the background color of profile pages based on the color of the profile picture.
 
 ## Future Work
 ### Waveforms
