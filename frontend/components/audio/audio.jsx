@@ -191,7 +191,7 @@ class Audio extends React.Component {
       progressColor: '#6c718c',
       waveColor: '#c4c8dc',
       normalize: true,
-      barWidth: 1,
+      barWidth: 3,
       audioRate: 1
     };
     let track = this.props.track;
