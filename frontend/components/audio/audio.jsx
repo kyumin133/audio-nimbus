@@ -102,7 +102,6 @@ class Audio extends React.Component {
     if (currentTime === duration) {
       this.next();
     } else {
-      // this.wavesurfer.pos = this.rap.audioEl.currentTime;
       this.props.updateCurrentTime(currentTime);
       this.setState({
         currentTime: this.displayTime(currentTime),
@@ -144,7 +143,7 @@ class Audio extends React.Component {
     });
     this.interval = setInterval(() => {
       this.updateTime();
-    }, 100);
+    }, 40);
   }
 
   displayTime(seconds) {

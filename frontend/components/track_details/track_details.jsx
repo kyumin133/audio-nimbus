@@ -145,15 +145,16 @@ class TrackDetails extends React.Component {
                     });
 
       if (!!newProps.currentTrack) {
-        // console.log(newProps.currentTrackPlaying);
         if (newProps.currentTrack.id === newProps.track.id) {
+          // console.log(newProps.currentTrack.currentTime);
           this.setState({
             paused: !newProps.currentTrackPlaying,
-            currentTime: newProps.currentTrack.currentTime
+            currentTime: newProps.currentTrack.currentTime // account for lag
           });
         } else {
           this.setState({
             paused: true,
+            currentTime: 0
           });
         }
       }
@@ -220,8 +221,11 @@ class TrackDetails extends React.Component {
       progressColor: '#6c718c',
       waveColor: '#c4c8dc',
       normalize: true,
-      barWidth: 3,
-      audioRate: 1
+      barWidth: 2,
+      audioRate: 1,
+      cursorWidth: 0,
+      progressColor: "#f50",
+      hideScrollbar: true
     };
 
     return  <div className="home-body">
@@ -247,6 +251,7 @@ class TrackDetails extends React.Component {
                           pos={this.state.currentTime}
                           onLoading={() => this.setState({waveClass: "wavesurfer-hidden"})}
                           onReady={() => this.setState({waveClass: "wavesurfer"})}
+                          onFinish={() => this.setState({currentTime: 0})}
                         />
                       </div>
                     </div>
