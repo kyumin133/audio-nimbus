@@ -30,7 +30,7 @@ class TrackDetails extends React.Component {
       lightestColor: "",
       error: "",
       currentTime: 0,
-      waveClass: "wavesurfer-hidden"
+      waveLoading: true
     }
   }
 
@@ -256,6 +256,32 @@ class TrackDetails extends React.Component {
       waveOverlay = <div className="wave-overlay" onClick={this.playPauseTrack}></div>
     }
 
+    let wavesurfer = <div className="wavesurfer" onClick={this.seek}>
+      <Wavesurfer
+        ref={(ws) => this.wavesurfer = ws}
+        audioFile={track.musicUrl}
+        options={waveOptions}
+        pos={this.state.currentTime}
+        onLoading={() => this.setState({waveLoading: true})}
+        onReady={() => this.setState({waveLoading: false})}
+        onFinish={() => this.setState({currentTime: 0.1})}
+      />
+    </div>;
+
+    let loading = ""
+    if (this.state.waveLoading) {
+      let barArr = [];
+      for (let i = 0; i < 100; i++) {
+        // let animationDuration = 1000 + (500 * Math.random());
+        // let animationDelay = -1000 + (500 * Math.random());
+        let animationDuration = 1000;
+        let animationDelay = 10 * i;
+        barArr.push(<div key={i} className="loading-bar" style={{animation: `sound ${animationDuration}ms ${animationDelay}ms linear infinite alternate`}}></div>)
+      }
+      // console.log(barArr);
+      loading = <div className="loading-bars">{barArr}</div>;
+    }
+
     return  <div className="home-body">
               <div className="margin-div"></div>
               <div className="track-details-div">
@@ -270,18 +296,9 @@ class TrackDetails extends React.Component {
                         {titleWrapper}
                       </div>
                     </div>
-                    <div className={this.state.waveClass}>
-                      <div className="wavesurfer" onClick={this.seek}>
-                        <Wavesurfer
-                          ref={(ws) => this.wavesurfer = ws}
-                          audioFile={track.musicUrl}
-                          options={waveOptions}
-                          pos={this.state.currentTime}
-                          onLoading={() => this.setState({waveClass: "details-bottom-left-hidden"})}
-                          onReady={() => this.setState({waveClass: "details-bottom-left"})}
-                          onFinish={() => this.setState({currentTime: 0.1})}
-                        />
-                      </div>
+                    <div className="details-bottom-left">
+                      {wavesurfer}
+                      {loading}
                     </div>
                   </div>
                   {imgWrapper}
