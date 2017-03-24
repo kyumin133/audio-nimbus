@@ -177,10 +177,10 @@ def get_dominant_colors!
 end
 ```
 
-The model then finds the dominant colors with the lowest and highest brightnesses, using the formula ```brightness = 0.2126 * red + 0.7152 * green + 0.0722 * blue```. This is saved as an array in the ```:dominant_colors``` column.
+The model then finds the dominant colors with the greatest color distance. Color distance is calculated using the formula ```distance = ((2 * dr * dr) + (4 * dg * dg) + (3 * db * db)) ** 0.5```, where ```dr```, ```dg```, and ```db``` are the differences in the red, green, and blue values, respectively. This is saved as an array in the ```:dominant_colors``` column.
 
 ```ruby
-  self.update_column(:dominant_colors, [colors[max_brightness_index], colors[min_brightness_index]])
+  self.update_column(:dominant_colors, [colors[most_contrasting_indices[1]], colors[most_contrasting_indices[0]]])
 ```
 
 The React front-end applies a linear gradient background style based on these two dominant colors.
