@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchTrack, playPauseTrack, updateTrack } from "../../actions/track_actions";
+import { fetchTrack, playPauseTrack, updateTrack, receiveCurrentTimeByPos } from "../../actions/track_actions";
 import TrackDetails from "./track_details";
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,7 +15,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchTrack: (trackId) => dispatch(fetchTrack(trackId)),
     playPauseTrack: (track) => dispatch(playPauseTrack(track)),
-    updateTrack: (trackId, track) => dispatch(updateTrack(trackId, track))
+    updateTrack: (trackId, track) => dispatch(updateTrack(trackId, track)),
+    updateCurrentTimeByPos: (currentPos) => dispatch(receiveCurrentTimeByPos(currentPos))
   };
 };
 

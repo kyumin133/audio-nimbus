@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { playPauseTrackFromAudio, playPauseTrack, fetchTracks } from "../../actions/track_actions";
+import { playPauseTrackFromAudio, playPauseTrack, receiveCurrentTime, fetchTracks } from "../../actions/track_actions";
+
 import Audio from "./audio";
 
 const mapStateToProps = (state, ownProps) => {
@@ -26,7 +27,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     playPauseTrackFromAudio: (paused) => dispatch(playPauseTrackFromAudio(paused)),
     playPauseTrack: (track) => dispatch(playPauseTrack(track)),
+<<<<<<< HEAD
     fetchTracks: () => dispatch(fetchTracks(-2))
+=======
+    updateCurrentTime: (currentTime) => dispatch(receiveCurrentTime(currentTime))
+>>>>>>> wavesurfer
   };
 };
 
