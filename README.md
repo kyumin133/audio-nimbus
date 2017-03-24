@@ -202,8 +202,6 @@ Examples:
 ![color 3](docs/screenshots/color_3.png)
 
 ## Future Work
-### Waveforms
-SoundCloud displays waveforms for the song, which would be a nice visual touch.
 ### Playlists
 Currently, the app simply plays the next track listed on the main page. It would
 be nice if users could create playlists and play only the tracks there.
