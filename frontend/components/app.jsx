@@ -21,6 +21,7 @@ class App extends React.Component {
     </header>;
 
     let footer = null;
+    let audio = <AudioContainer />;
     if (!window.currentUser) {
       footer = <footer>
         <div className="img-src">Icon made by <a href="http://www.flaticon.com/authors/anhgreen" title="anhgreen">anhgreen</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a></div>
@@ -29,13 +30,14 @@ class App extends React.Component {
           Licensed under <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons</a>: By Attribution 3.0 <br />
         </div>
       </footer>;
+      audio = null;
     }
 
     return <div>
       { header }
       <div className="body-audio">
         { this.props.children }
-        <AudioContainer />
+        {audio}
       </div>
       { footer }
     </div>
