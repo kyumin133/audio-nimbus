@@ -1,8 +1,10 @@
 import React from "react";
+// import ReactDOM from 'react-dom';
 import ReactAudioPlayer from 'react-audio-player';
 import { Link } from "react-router";
 import { Line } from 'rc-progress';
 import Slider from 'rc-slider';
+import Wavesurfer from 'react-wavesurfer';
 
 class Audio extends React.Component {
   // shouldComponentUpdate(nextProps, nextState) {
@@ -96,6 +98,7 @@ class Audio extends React.Component {
     if (this.rap.audioEl.currentTime === this.rap.audioEl.duration) {
       this.next();
     } else {
+      // this.wavesurfer.pos = this.rap.audioEl.currentTime;
       this.setState({
         currentTime: this.displayTime(this.rap.audioEl.currentTime),
         percent: 100 * this.rap.audioEl.currentTime / this.rap.audioEl.duration
@@ -103,7 +106,29 @@ class Audio extends React.Component {
     }
   }
 
+
   start() {
+    // var reader = new FileReader();
+    //
+    // reader.onloadend = function() {
+    //   // let str = reader.result;
+    //   // let buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+    //   // let bufView = new Uint16Array(buf);
+    //   // for (let i=0, strLen=str.length; i<strLen; i++) {
+    //   //   bufView[i] = str.charCodeAt(i);
+    //   // }
+    //   // let buf = this.str2ab(reader.result);
+    //
+    //   let context = new (window.AudioContext || window.webkitAudioContext)();
+    //   console.log(reader.result);
+    //   context.decodeAudioData(reader.result, (buffer) => {
+    //     this.buffer = buffer;
+    //     console.log("loaded!!");
+    //   });
+    // }.bind(this);
+    //
+    // reader.readAsArrayBuffer(new File([this.props.track.musicUrl], "currentTrack"));
+
     this.rap.audioEl.play();
     this.rap.audioEl.volume = 0.5
     this.setState({
@@ -160,6 +185,15 @@ class Audio extends React.Component {
 
   render() {
     // console.log(this.state.paused);
+    let waveOptions = {
+      fillParent: true,
+      height: 140,
+      progressColor: '#6c718c',
+      waveColor: '#c4c8dc',
+      normalize: true,
+      barWidth: 1,
+      audioRate: 1
+    };
     let track = this.props.track;
     if (!track) {
       return null;
@@ -177,7 +211,21 @@ class Audio extends React.Component {
       volumeIcon = <i className="fa fa-volume-up" aria-hidden="true"></i>;
     }
 
+
+    let pos = 0;
+    if (!!this.rap) {
+      pos = this.rap.audioEl.currentTime;
+    }
+
     return  <div className="audio">
+              <div className="wavesurfer">
+                <Wavesurfer
+                  ref={(ws) => this.wavesurfer = ws}
+                  audioFile={track.musicUrl}
+                  options={waveOptions}
+                  pos={pos}
+                />
+              </div>
               <div className="controls-div">
                 <ul className="controls-ul">
                   <li onClick={this.back}><i className="fa fa-step-backward" aria-hidden="true"></i></li>
