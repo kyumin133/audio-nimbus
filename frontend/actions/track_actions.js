@@ -64,6 +64,8 @@ export const fetchTracks = (userId) => (dispatch) => {
   return TrackAPIUtil.fetchTracks(userId).then(response => {
     if (userId === -1) {
       dispatch(receiveAllTracks(response));
+    } else if (userId === -2) {
+      return dispatch(receiveAllTracks(response));
     }
     return dispatch(receiveTracks(response));
   }).fail(errors => {

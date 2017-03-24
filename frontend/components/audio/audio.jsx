@@ -144,8 +144,14 @@ class Audio extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.rap === undefined) {
+    if (!this.rap) {
       return;
+    }
+
+    if (!this.props.tracks) {
+      // console.log(this.props.tracks);
+      this.props.fetchTracks();
+      // return;
     }
     // console.log(newProps);
     if (newProps.paused !== this.props.paused) {

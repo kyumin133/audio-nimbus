@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
-import { playPauseTrackFromAudio, playPauseTrack } from "../../actions/track_actions";
+import { playPauseTrackFromAudio, playPauseTrack, fetchTracks } from "../../actions/track_actions";
 import Audio from "./audio";
 
 const mapStateToProps = (state, ownProps) => {
   let track = state.trackInfo.currentTrack;
   let trackIndex = -1;
-  if (!!track) {
+  if ((!!track) && (!!state.trackInfo.allTracks)) {
     for (let i = 0; i < state.trackInfo.allTracks.length; i++) {
       if (state.trackInfo.allTracks[i].id === track.id) {
         trackIndex = i;
@@ -13,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
       }
     }
   }
+
   return {
     track: track,
     trackIndex: trackIndex,
@@ -24,7 +25,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     playPauseTrackFromAudio: (paused) => dispatch(playPauseTrackFromAudio(paused)),
-    playPauseTrack: (track) => dispatch(playPauseTrack(track))
+    playPauseTrack: (track) => dispatch(playPauseTrack(track)),
+    fetchTracks: () => dispatch(fetchTracks(-2))
   };
 };
 
