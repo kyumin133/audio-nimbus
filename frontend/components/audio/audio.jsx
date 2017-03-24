@@ -185,6 +185,13 @@ class Audio extends React.Component {
     if (newProps.artistName !== this.props.artistName) {
       this.forceUpdate();
     }
+
+    if (newProps.track.currentPos !== this.props.track.currentPos) {
+      if (!!newProps.track.currentPos) {
+        let audio = this.rap.audioEl;
+        audio.currentTime = audio.duration * newProps.track.currentPos
+      }
+    }
   }
 
   render() {

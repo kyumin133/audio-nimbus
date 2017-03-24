@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENT_TIME, RECEIVE_UPLOAD_STATUS, RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO, RECEIVE_PLAY_PAUSE_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_ALL_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_TRACK_ERRORS } from "../actions/track_actions";
+import { RECEIVE_CURRENT_TIME_BY_POS, RECEIVE_CURRENT_TIME, RECEIVE_UPLOAD_STATUS, RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO, RECEIVE_PLAY_PAUSE_TRACK, STOP_CURRENT_TRACK, RECEIVE_TRACKS, RECEIVE_ALL_TRACKS, RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_TRACK_ERRORS } from "../actions/track_actions";
 import { RECEIVE_PLAYING_USERNAME } from "../actions/user_actions";
 import merge from 'lodash/merge';
 
@@ -12,6 +12,11 @@ const trackReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState = merge({}, state);;
   switch (action.type) {
+    case RECEIVE_CURRENT_TIME_BY_POS:
+      if (!!newState.currentTrack) {
+        newState.currentTrack.currentPos = action.currentPos;
+      }
+      return newState;
     case RECEIVE_CURRENT_TIME:
       if (!!newState.currentTrack) {
         newState.currentTrack.currentTime = action.currentTime;

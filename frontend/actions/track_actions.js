@@ -11,7 +11,14 @@ export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
 export const RECEIVE_UPLOAD_STATUS = "RECEIVE_UPLOAD_STATUS";
 export const RECEIVE_CURRENT_TIME = "RECEIVE_CURRENT_TIME";
+export const RECEIVE_CURRENT_TIME_BY_POS = "RECEIVE_CURRENT_TIME_BY_POS";
 
+export const receiveCurrentTimeByPos = (currentPos) => {
+  return {
+    type: RECEIVE_CURRENT_TIME_BY_POS,
+    currentPos
+  }
+}
 export const receivePlayPauseTrackFromAudio = (paused) => {
   return {
     type: RECEIVE_PLAY_PAUSE_TRACK_FROM_AUDIO,

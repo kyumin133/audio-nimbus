@@ -16,6 +16,7 @@ class TrackDetails extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.submitChanges = this.submitChanges.bind(this);
     this.cancelChanges = this.cancelChanges.bind(this);
+    this.seek = this.seek.bind(this);
     this.state = {
       paused: true,
       editing: false,
@@ -30,6 +31,27 @@ class TrackDetails extends React.Component {
       error: "",
       currentTime: 0,
       waveClass: "wavesurfer-hidden"
+    }
+  }
+
+  seek(e) {
+    if (!this.props.currentTrack) {
+      // e.preventDefault();
+      this.playPauseTrack();
+      this.setState({
+        currentTime: 0.1
+      });
+    } else if (this.props.currentTrack.id === this.props.track.id) {
+      let currentPos = ( e.nativeEvent.offsetX / e.currentTarget.clientWidth )
+      this.props.updateCurrentTimeByPos(currentPos);
+      // this.setState({
+      //   currentTime: 0.1
+      // });
+    } else {
+      this.setState({
+        currentTime: 0.1
+      });
+      this.playPauseTrack();
     }
   }
 
@@ -146,15 +168,14 @@ class TrackDetails extends React.Component {
 
       if (!!newProps.currentTrack) {
         if (newProps.currentTrack.id === newProps.track.id) {
-          // console.log(newProps.currentTrack.currentTime);
           this.setState({
             paused: !newProps.currentTrackPlaying,
-            currentTime: newProps.currentTrack.currentTime // account for lag
+            currentTime: newProps.currentTrack.currentTime
           });
         } else {
           this.setState({
             paused: true,
-            currentTime: 0
+            currentTime: 0.1
           });
         }
       }
@@ -209,24 +230,31 @@ class TrackDetails extends React.Component {
       playPauseIcon = <i className="fa fa-pause details-pause" aria-hidden="true"></i>;
     }
 
-    // console.log(this.state);
     let bannerBackground = {
       background: `linear-gradient(135deg, ${this.state.darkestColor} 0%, ${this.state.lightestColor} 100%)`
     };
-    // console.log(bannerBackground);
 
     let waveOptions = {
       fillParent: true,
       height: 100,
-      progressColor: '#6c718c',
+      progressColor: '#f50',
       waveColor: '#c4c8dc',
       normalize: true,
       barWidth: 2,
       audioRate: 1,
       cursorWidth: 0,
-      progressColor: "#f50",
       hideScrollbar: true
     };
+
+    let waveOverlay = "";
+
+    if (!!this.props.currentTrack) {
+      if (this.props.currentTrack.id !== this.props.track.id) {
+        // waveOverlay = <div className="wave-overlay" onClick={this.playPauseTrack}></div>
+      }
+    } else {
+      waveOverlay = <div className="wave-overlay" onClick={this.playPauseTrack}></div>
+    }
 
     return  <div className="home-body">
               <div className="margin-div"></div>
@@ -242,16 +270,16 @@ class TrackDetails extends React.Component {
                         {titleWrapper}
                       </div>
                     </div>
-                    <div className="details-bottom-left">
-                      <div className={this.state.waveClass}>
+                    <div className={this.state.waveClass}>
+                      <div className="wavesurfer" onClick={this.seek}>
                         <Wavesurfer
                           ref={(ws) => this.wavesurfer = ws}
                           audioFile={track.musicUrl}
                           options={waveOptions}
                           pos={this.state.currentTime}
-                          onLoading={() => this.setState({waveClass: "wavesurfer-hidden"})}
-                          onReady={() => this.setState({waveClass: "wavesurfer"})}
-                          onFinish={() => this.setState({currentTime: 0})}
+                          onLoading={() => this.setState({waveClass: "details-bottom-left-hidden"})}
+                          onReady={() => this.setState({waveClass: "details-bottom-left"})}
+                          onFinish={() => this.setState({currentTime: 0.1})}
                         />
                       </div>
                     </div>
