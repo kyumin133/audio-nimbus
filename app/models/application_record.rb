@@ -25,7 +25,7 @@ class ApplicationRecord < ActiveRecord::Base
     # end
 
     max_distance_overall = 0
-    most_contrasting_indices_indices = [0, 0]
+    most_contrasting_indices = [0, 0]
     # distance_arr = []
     colors.each_with_index do |color1, i|
       max_distance = 0
