@@ -59,6 +59,10 @@ footer {
   height: 100%;
 }
 
+.job-link {
+  margin-left: 5px;
+}
+
 footer a {
   transition: color 0.2s ease-in-out;
 }

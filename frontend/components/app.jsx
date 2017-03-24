@@ -29,6 +29,11 @@ class App extends React.Component {
           Music provided by <a href="http://incompetech.com/music/royalty-free/">Incompetech</a> <br />
           Licensed under <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons</a>: By Attribution 3.0 <br />
         </div>
+        <div className="img-src">
+          Created by Ken (Kyumin) Lee
+          <a className="job-link" href="https://github.com/kyumin133/audio-nimbus"><i className="fa fa-github" aria-hidden="true"></i></a>
+          <a className="job-link" href="https://www.linkedin.com/in/kenneth-kyumin-lee-10918922"><i className="fa fa-linkedin-square" aria-hidden="true"></i></a>
+        </div>
       </footer>;
       audio = null;
     }
