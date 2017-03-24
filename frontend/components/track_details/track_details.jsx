@@ -1,6 +1,7 @@
 import React from "react";
 import CommentsIndexContainer from "../comments/comments_index_container";
 import CommentFormContainer from "../comments/comment_form_container";
+import Wavesurfer from 'react-wavesurfer';
 import { Link } from "react-router";
 
 class TrackDetails extends React.Component {
@@ -26,7 +27,9 @@ class TrackDetails extends React.Component {
       savedImageFile: null,
       darkestColor: "",
       lightestColor: "",
-      error: ""
+      error: "",
+      currentTime: 0,
+      waveClass: "wavesurfer-hidden"
     }
   }
 
@@ -145,7 +148,8 @@ class TrackDetails extends React.Component {
         // console.log(newProps.currentTrackPlaying);
         if (newProps.currentTrack.id === newProps.track.id) {
           this.setState({
-            paused: !newProps.currentTrackPlaying
+            paused: !newProps.currentTrackPlaying,
+            currentTime: newProps.currentTrack.currentTime
           });
         } else {
           this.setState({
@@ -210,22 +214,46 @@ class TrackDetails extends React.Component {
     };
     // console.log(bannerBackground);
 
+    let waveOptions = {
+      fillParent: true,
+      height: 100,
+      progressColor: '#6c718c',
+      waveColor: '#c4c8dc',
+      normalize: true,
+      barWidth: 3,
+      audioRate: 1
+    };
+
     return  <div className="home-body">
               <div className="margin-div"></div>
               <div className="track-details-div">
                 <div className="track-details-banner" style={bannerBackground}>
                   <div className="details-left">
-                    <div className="details-play-pause" onClick={this.playPauseTrack}>
-                      {playPauseIcon}
+                    <div className="details-top-left">
+                      <div className="details-play-pause" onClick={this.playPauseTrack}>
+                        {playPauseIcon}
+                      </div>
+                      <div className="details-text">
+                        <span className="details-artist-name"><Link className="track-details-link" to={`/profile/${track.artistId}`}>{track.artistName}</Link></span>
+                        {titleWrapper}
+                      </div>
                     </div>
-                    <div className="details-text">
-                      <span className="details-artist-name"><Link className="track-details-link" to={`/profile/${track.artistId}`}>{track.artistName}</Link></span>
-                      {titleWrapper}
+                    <div className="details-bottom-left">
+                      <div className={this.state.waveClass}>
+                        <Wavesurfer
+                          ref={(ws) => this.wavesurfer = ws}
+                          audioFile={track.musicUrl}
+                          options={waveOptions}
+                          pos={this.state.currentTime}
+                          onLoading={() => this.setState({waveClass: "wavesurfer-hidden"})}
+                          onReady={() => this.setState({waveClass: "wavesurfer"})}
+                        />
+                      </div>
                     </div>
                   </div>
                   {imgWrapper}
                 </div>
-                <div className="comments-div" >                  
+                <div className="comments-div" >
                   <CommentFormContainer commentType="Track" commentableId={track.id}/>
                   <CommentsIndexContainer commentType="Track" commentableId={track.id} userId={this.props.userId}/>
                 </div>

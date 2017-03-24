@@ -4,7 +4,6 @@ import ReactAudioPlayer from 'react-audio-player';
 import { Link } from "react-router";
 import { Line } from 'rc-progress';
 import Slider from 'rc-slider';
-import Wavesurfer from 'react-wavesurfer';
 
 class Audio extends React.Component {
   // shouldComponentUpdate(nextProps, nextState) {
@@ -95,13 +94,19 @@ class Audio extends React.Component {
       clearInterval(this.interval);
       return;
     }
-    if (this.rap.audioEl.currentTime === this.rap.audioEl.duration) {
+
+    let audio = this.rap.audioEl;
+    let currentTime = audio.currentTime;
+    let duration = audio.duration;
+
+    if (currentTime === duration) {
       this.next();
     } else {
       // this.wavesurfer.pos = this.rap.audioEl.currentTime;
+      this.props.updateCurrentTime(currentTime);
       this.setState({
-        currentTime: this.displayTime(this.rap.audioEl.currentTime),
-        percent: 100 * this.rap.audioEl.currentTime / this.rap.audioEl.duration
+        currentTime: this.displayTime(currentTime),
+        percent: 100 * currentTime / duration
       });
     }
   }
@@ -185,15 +190,7 @@ class Audio extends React.Component {
 
   render() {
     // console.log(this.state.paused);
-    let waveOptions = {
-      fillParent: true,
-      height: 140,
-      progressColor: '#6c718c',
-      waveColor: '#c4c8dc',
-      normalize: true,
-      barWidth: 3,
-      audioRate: 1
-    };
+
     let track = this.props.track;
     if (!track) {
       return null;
@@ -218,14 +215,6 @@ class Audio extends React.Component {
     }
 
     return  <div className="audio">
-              <div className="wavesurfer">
-                <Wavesurfer
-                  ref={(ws) => this.wavesurfer = ws}
-                  audioFile={track.musicUrl}
-                  options={waveOptions}
-                  pos={pos}
-                />
-              </div>
               <div className="controls-div">
                 <ul className="controls-ul">
                   <li onClick={this.back}><i className="fa fa-step-backward" aria-hidden="true"></i></li>

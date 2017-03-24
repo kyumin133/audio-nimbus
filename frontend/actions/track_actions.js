@@ -10,6 +10,7 @@ export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
 export const RECEIVE_UPLOAD_STATUS = "RECEIVE_UPLOAD_STATUS";
+export const RECEIVE_CURRENT_TIME = "RECEIVE_CURRENT_TIME";
 
 export const receivePlayPauseTrackFromAudio = (paused) => {
   return {
@@ -59,6 +60,11 @@ export const receiveUploadStatus = (uploading) => ({
   type: RECEIVE_UPLOAD_STATUS,
   uploading
 });
+
+export const receiveCurrentTime = (currentTime) => ({
+  type: RECEIVE_CURRENT_TIME,
+  currentTime
+})
 
 export const fetchTracks = (userId) => (dispatch) => {
   return TrackAPIUtil.fetchTracks(userId).then(response => {
