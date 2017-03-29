@@ -156,15 +156,26 @@ class TrackDetails extends React.Component {
       // });
       // this.wavesurfer.load(newProps.track.musicUrl);
 
-      this.setState({ title: newProps.track.title,
-                      savedTitle: newProps.track.title,
-                      imageUrl: newProps.track.imageUrl,
-                      savedImageUrl: newProps.track.imageUrl,
-                      imageFile: newProps.track.imageFile,
-                      savedImageFile: newProps.track.imageFile,
-                      darkestColor: `rgb(${newProps.track.dominantColors[0].join(", ")})`,
-                      lightestColor: `rgb(${newProps.track.dominantColors[1].join(", ")})`
-                    });
+      if (this.state.savedTitle !== newProps.track.title) {
+        this.setState({
+          title: newProps.track.title,
+          savedTitle: newProps.track.title,
+        });
+      }
+
+      if (this.state.savedImageUrl !== newProps.track.imageUrl) {
+        this.setState({
+          imageUrl: newProps.track.imageUrl,
+          savedImageUrl: newProps.track.imageUrl,
+          imageFile: newProps.track.imageFile,
+          savedImageFile: newProps.track.imageFile
+        });
+      }
+
+      this.setState({      
+        darkestColor: `rgb(${newProps.track.dominantColors[0].join(", ")})`,
+        lightestColor: `rgb(${newProps.track.dominantColors[1].join(", ")})`
+      });
 
       if (!!newProps.currentTrack) {
         if (newProps.currentTrack.id === newProps.track.id) {
